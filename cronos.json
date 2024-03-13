@@ -5,14 +5,14 @@
         "description": "Microservice for consuming data from measuring devices.",
         "termsOfService": "https://www.google.com/policies/terms/",
         "contact": {
-            "email": "contact@snippets.local"
+            "email": "contato@hex360.com.br"
         },
         "license": {
             "name": "BSD License"
         },
         "version": "v1"
     },
-    "host": "localhost:8080",
+    "host": "cronos-api.xskylab.com.br",
     "schemes": [
         "http"
     ],
