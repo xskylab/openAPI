@@ -1,214 +1,391 @@
 {
-    "swagger": "2.0",
+    "openapi": "3.0.1",
     "info": {
-        "title": "Cronos API",
-        "description": "Microservice for consuming data from measuring devices.",
-        "termsOfService": "https://www.google.com/policies/terms/",
-        "contact": {
-            "email": "contato@hex360.com.br"
-        },
-        "license": {
-            "name": "BSD License"
-        },
-        "version": "v1"
+      "title": "Cronos API",
+      "termsOfService": "https://www.google.com/policies/terms/",
+      "contact": {
+        "email": "contato@hex360.com.br"
+      },
+      "license": {
+        "name": "BSD License"
+      },
+      "version": "v0.1.11"
     },
-    "host": "cronos-api.xskylab.com.br",
-    "schemes": [
-        "https"
+    "servers": [
+      {
+        "url": "https://cronos-api.xskylab.com.br",
+        "description": "API de uso restrito da Hex360."
+      }
     ],
-    "basePath": "/",
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ],
-    "securityDefinitions": {
-        "Basic": {
-            "type": "basic"
-        }
-    },
     "security": [
-        {
-            "Basic": []
-        }
+      {
+        "JWT": []
+      }
     ],
     "paths": {
-        "/auth/obtain_token/": {
-            "post": {
-                "operationId": "auth_obtain_token_create",
-                "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
-                "parameters": [
-                    {
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/TokenObtainPair"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/TokenObtainPair"
-                        }
-                    }
-                },
-                "tags": [
-                    "auth"
-                ]
-            },
-            "parameters": []
-        },
-        "/auth/refresh_token/": {
-            "post": {
-                "operationId": "auth_refresh_token_create",
-                "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
-                "parameters": [
-                    {
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/TokenRefresh"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/TokenRefresh"
-                        }
-                    }
-                },
-                "tags": [
-                    "auth"
-                ]
-            },
-            "parameters": []
-        },
-        "/orbcomm/fetch/": {
-            "get": {
-                "operationId": "orbcomm_fetch_list",
-                "description": "Access satellite data and stores it.",
-                "parameters": [
-                    {
-                        "name": "start_utc",
-                        "in": "query",
-                        "description": "Start date on UTC format.",
-                        "allowEmptyValue": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The request has been successfully completed. X instances have been created."
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    }
-                },
-                "tags": [
-                    "orbcomm"
-                ]
-            },
-            "parameters": []
-        },
-        "/orbcomm/list/": {
-            "get": {
-                "operationId": "orbcomm_list_list",
-                "description": "List Orbcomm formatted values.",
-                "parameters": [
-                    {
-                        "name": "search",
-                        "in": "query",
-                        "description": "Filter results that starts with the given parameter.",
-                        "required": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Orbcomm"
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "orbcomm"
-                ]
-            },
-            "parameters": []
-        }
-    },
-    "definitions": {
-        "TokenObtainPair": {
-            "required": [
-                "username",
-                "password"
-            ],
-            "type": "object",
-            "properties": {
-                "refresh": {
-                    "title": "Refresh",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "access": {
-                    "title": "Access",
-                    "type": "string",
-                    "minLength": 1
+      "/auth/obtain_token/": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Obter Token de Autenticação",
+          "description": "Recebe um conjunto de credenciais de usuário e retorna seus respectivos _token_\nde acesso e atualização (_access e refresh token_). Para ter acesso a nossas API's\né necessário contato prévio com a equipe de suporte reponsável por seu contrato.\n\nO _access Token_ disponibilizado através dessa API deve ser utilizado como cabeçalho de cada requisição para retorno correto dos dados.\n\nSendo assim, após recebimento do _access_ e do _refresh_ seja enviado na requisição passando como `Authorization: Bearer <token>`.",
+          "operationId": "ObtainAuthToken",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenObtainPair"
                 }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TokenObtainPairSuccess"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
             }
+          },
+          "x-codegen-request-body-name": "data",
+          "security": []
+        }
+      },
+      "/auth/refresh_token/": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Atualização de Token de Autenticação",
+          "description": "Recebe um _token_ de atualização em JSON e retorna o _token_ de acesso\ncaso o _token_ de atualização seja válido.",
+          "operationId": "RefreshToken",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenRefresh"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TokenRefreshSuccess"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "x-codegen-request-body-name": "data",
+          "security": []
+        }
+      },
+      "/orbcomm/fetch/": {
+        "post": {
+          "tags": [
+            "orbcomm"
+          ],
+          "summary": "Atualização de dados Orbcomm",
+          "description": "Acessa os dados disponibilizados pelo satelite e atualiza a base dados",
+          "operationId": "orbcommFetch",
+          "parameters": [
+            {
+              "name": "start_utc",
+              "in": "query",
+              "description": "Data de início da busca no formato UTC.",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "The request has been successfully completed and X messages were found"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "x-codegen-request-body-name": "data"
+        }
+      },
+      "/orbcomm/list/": {
+        "post": {
+          "tags": [
+            "orbcomm"
+          ],
+          "summary": "Lista os dados armazenados",
+          "description": "Busca lista de dados Orbcomm armazenados com valores formatados",
+          "operationId": "orbcommList",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "description": "Filtra os resultados que iniciam com o parametro informado",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Orbcomm"
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "x-codegen-request-body-name": "data"
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "CreateOrUpdateMetaResponse": {
+          "type": "object",
+          "properties": {
+            "req_id": {
+              "type": "string"
+            },
+            "ignored": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "TokenObtainPair": {
+          "required": [
+            "username",
+            "password"
+          ],
+          "type": "object",
+          "properties": {
+            "username": {
+              "title": "Username",
+              "minLength": 1,
+              "type": "string"
+            },
+            "password": {
+              "title": "Password",
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        },
+        "TokenObtainPairSuccess": {
+          "example": {
+            "refresh": "d07c8b12c95e4a06842492aac94bb445",
+            "access": "d07c8b12c95e4a06842492aac94bb445uSe"
+          }
         },
         "TokenRefresh": {
-            "required": [
-                "refresh"
-            ],
-            "type": "object",
-            "properties": {
-                "access": {
-                    "title": "Access",
-                    "type": "string",
-                    "minLength": 1
-                }
+          "required": [
+            "refresh"
+          ],
+          "type": "object",
+          "properties": {
+            "refresh": {
+              "title": "Refresh",
+              "minLength": 1,
+              "type": "string"
             }
+          }
+        },
+        "TokenRefreshSuccess": {
+          "example": {
+            "access": "d07c8b12c95e4a06842492aac94bb445uSe"
+          }
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string",
+              "enum": [
+                "Forbidden",
+                "InvalidParameter",
+                "InvalidBodyParameter",
+                "ResourceNotFound",
+                "Unauthorized",
+                "InvalidCredentials",
+                "InvalidGrantType"
+              ]
+            },
+            "title": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "parameter": {
+                  "type": "string"
+                },
+                "pointer": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "CreateOrUpdateErrorResponse": {
+          "type": "object",
+          "properties": {
+            "meta": {
+              "$ref": "#/components/schemas/CreateOrUpdateMetaResponse"
+            },
+            "errors": {
+              "$ref": "#/components/schemas/Error"
+            }
+          },
+          "example": {
+            "errors": [
+              {
+                "code": "Unauthorized",
+                "detail": "A valid bearer token is required",
+                "status": "401"
+              }
+            ]
+          }
         },
         "Orbcomm": {
-            "required": [
-                "value"
-            ],
-            "type": "object",
-            "properties": {
-                "id": {
-                    "title": "ID",
-                    "type": "integer",
-                    "readOnly": true
-                },
-                "value": {
-                    "title": "Value",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "data": {
-                    "title": "Data",
-                    "type": "object",
-                    "x-nullable": true
-                },
-                "created_at": {
-                    "title": "Created at",
-                    "type": "string",
-                    "format": "date-time",
-                    "readOnly": true
-                }
+          "required": [
+            "value"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "integer",
+              "readOnly": true
+            },
+            "value": {
+              "title": "Value",
+              "type": "string",
+              "minLength": 1
+            },
+            "data": {
+              "title": "Data",
+              "type": "object",
+              "x-nullable": true
+            },
+            "created_at": {
+              "title": "Created at",
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
             }
+          }
         }
+      },
+      "securitySchemes": {
+        "JWT": {
+          "description": "Token de Autenticação",
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
     }
-}
+  }
