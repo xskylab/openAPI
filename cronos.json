@@ -174,8 +174,8 @@
             ],
             "type": "object",
             "properties": {
-                "refresh": {
-                    "title": "Refresh",
+                "access": {
+                    "title": "Access",
                     "type": "string",
                     "minLength": 1
                 }
