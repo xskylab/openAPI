@@ -14,7 +14,7 @@
     },
     "host": "cronos-api.xskylab.com.br",
     "schemes": [
-        "http"
+        "https"
     ],
     "basePath": "/",
     "consumes": [
