@@ -156,13 +156,13 @@
             ],
             "type": "object",
             "properties": {
-                "username": {
-                    "title": "Username",
+                "refresh": {
+                    "title": "Refresh",
                     "type": "string",
                     "minLength": 1
                 },
-                "password": {
-                    "title": "Password",
+                "access": {
+                    "title": "Access",
                     "type": "string",
                     "minLength": 1
                 }
