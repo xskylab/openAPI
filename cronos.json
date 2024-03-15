@@ -289,7 +289,7 @@
         },
         "TokenRefreshSuccess": {
           "example": {
-            "access": "d07c8b12c95e4a06842492aac94bb445uSe"
+            "access": ""
           }
         },
         "Error": {
