@@ -29,7 +29,7 @@
             "auth"
           ],
           "summary": "Obter Token de Autenticação",
-          "description": "Recebe um conjunto de credenciais de usuário e retorna seus respectivos _token_\nde acesso e atualização (_access e refresh token_). Para ter acesso a nossas API's\né necessário contato prévio com a equipe de suporte reponsável por seu contrato.\n\nO _access Token_ disponibilizado através dessa API deve ser utilizado como cabeçalho de cada requisição para retorno correto dos dados.\n\nSendo assim, após recebimento do _access_ e do _refresh_ seja enviado na requisição passando como `Authorization: Bearer <token>`.",
+          "description": "Recebe um conjunto de credenciais de usuário e retorna seus respectivos _token_\nde acesso e atualização (_access e refresh token_). Para ter acesso a nossas API's\né necessário contato prévio com a equipe de suporte reponsável por seu contrato.\n\nO _access Token_ disponibilizado através dessa API deve ser utilizado como cabeçalho de cada requisição para retorno correto dos dados.\n\nSendo assim, após recebimento do _access_ e do _refresh_, o __access__ deve ser enviado como cabeçalho em `Authorization: Bearer <token>`.",
           "operationId": "ObtainAuthToken",
           "requestBody": {
             "content": {
