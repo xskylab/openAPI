@@ -42,8 +42,8 @@
             "required": true
           },
           "responses": {
-            "201": {
-              "description": "Success",
+            "200": {
+              "description": "OK",
               "content": {
                 "application/json": {
                   "schema": {
@@ -86,8 +86,8 @@
             "required": true
           },
           "responses": {
-            "201": {
-              "description": "Success",
+            "200": {
+              "description": "OK",
               "content": {
                 "application/json": {
                   "schema": {
@@ -142,7 +142,7 @@
           ],
           "responses": {
             "200": {
-              "description": "Success",
+              "description": "OK",
               "content": {
                 "application/json": {
                   "example": {
@@ -196,7 +196,7 @@
           ],
           "responses": {
             "200": {
-              "description": "Success",
+              "description": "OK",
               "content": {
                 "application/json": {
                   "schema": {
