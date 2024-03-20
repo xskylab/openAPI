@@ -388,6 +388,11 @@
               "type": "object",
               "x-nullable": true
             },
+            "date": {
+              "title": "Date",
+              "type": "datetime",
+              "x-nullable": true
+            },
             "created_at": {
               "title": "Created at",
               "type": "string",
