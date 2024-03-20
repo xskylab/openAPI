@@ -185,12 +185,30 @@
           "operationId": "orbcommList",
           "parameters": [
             {
-              "name": "search",
+              "name": "value",
               "in": "query",
               "description": "Filtra os resultados que iniciam com o parametro informado",
               "required": false,
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "name": "start_date",
+              "in": "query",
+              "description": "Filtra os resultados com data superior ou igual ao parametro informado",
+              "required": false,
+              "schema": {
+                "type": "datetime"
+              }
+            },
+            {
+              "name": "end_date",
+              "in": "query",
+              "description": "Filtra os resultados com data inferior ou igual ao parametro informado",
+              "required": false,
+              "schema": {
+                "type": "datetime"
               }
             }
           ],
