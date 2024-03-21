@@ -14,7 +14,7 @@
     "servers": [
       {
         "url": "https://cronos-api.xskylab.com",
-        "description": "API de uso restrito da Hex360."
+        "description": "API de uso restrito da Hex360 e clientes."
       }
     ],
     "security": [
