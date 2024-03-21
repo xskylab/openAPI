@@ -370,9 +370,6 @@
           }
         },
         "Orbcomm": {
-          "required": [
-            "value"
-          ],
           "type": "object",
           "properties": {
             "id": {
