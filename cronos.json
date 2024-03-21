@@ -127,7 +127,7 @@
             "orbcomm"
           ],
           "summary": "Atualização de dados Orbcomm",
-          "description": "Acessa os dados disponibilizados pelo satelite e atualiza a base dados",
+          "description": "Acessa os dados disponibilizados pelo satelite e atualiza a base dados.",
           "operationId": "orbcommFetch",
           "parameters": [
             {
@@ -146,7 +146,7 @@
               "content": {
                 "application/json": {
                   "example": {
-                    "message": "The request has been successfully completed and X messages were found"
+                    "message": "The request has been successfully completed and X messages were found."
                   }
                 }
               }
@@ -181,13 +181,13 @@
             "orbcomm"
           ],
           "summary": "Lista os dados armazenados",
-          "description": "Busca lista de dados Orbcomm armazenados com valores formatados",
+          "description": "Busca lista de dados Orbcomm armazenados com valores formatados.",
           "operationId": "orbcommList",
           "parameters": [
             {
               "name": "value",
               "in": "query",
-              "description": "Filtra os resultados que iniciam com o parametro informado",
+              "description": "Filtra os resultados que iniciam com o parametro informado.",
               "required": false,
               "schema": {
                 "type": "string"
@@ -196,7 +196,8 @@
             {
               "name": "start_date",
               "in": "query",
-              "description": "Filtra os resultados com data superior ou igual ao parametro informado",
+              "description": "Filtra os resultados com data superior ou igual ao parametro informado.",
+              "example": "2023-12-01 20:00:00",
               "required": false,
               "schema": {
                 "type": "datetime"
@@ -205,7 +206,8 @@
             {
               "name": "end_date",
               "in": "query",
-              "description": "Filtra os resultados com data inferior ou igual ao parametro informado",
+              "description": "Filtra os resultados com data inferior ou igual ao parametro informado.",
+              "example": "2024-03-01 13:00:00",
               "required": false,
               "schema": {
                 "type": "datetime"
