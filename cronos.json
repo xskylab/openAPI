@@ -185,9 +185,18 @@
           "operationId": "orbcommList",
           "parameters": [
             {
-              "name": "value",
+              "name": "id",
               "in": "query",
-              "description": "Filtra os resultados que iniciam com o parametro informado.",
+              "description": "Filtra os resultados a partir do identificador da mensagem.",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "station",
+              "in": "query",
+              "description": "Filtra os resultados a partir do identificador da estação.",
               "required": false,
               "schema": {
                 "type": "string"
