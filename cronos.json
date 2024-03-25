@@ -354,9 +354,26 @@
           "type": "object",
           "properties": {
             "id": {
-              "title": "id",
+              "title": "ID",
               "type": "string",
               "description": "Filtra os resultados a partir do identificador da mensagem."
+            },
+            "station":{
+              "title": "Station",
+              "type": "string",
+              "description": "Filtra os resultados a partir do identificador da estação."
+            },
+            "start_date":{
+              "title": "Start date",
+              "description": "Filtra os resultados com data superior ou igual ao parametro informado.",
+              "example": "2023-12-01 20:00:00",
+              "type": "datetime"
+            },
+            "end_date":{
+              "title": "End date",
+              "description": "Filtra os resultados com data inferior ou igual ao parametro informado.",
+              "example": "2023-12-01 20:00:00",
+              "type": "datetime"
             }
           }
         },
