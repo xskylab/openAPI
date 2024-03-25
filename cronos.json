@@ -259,6 +259,59 @@
             }
           },
           "x-codegen-request-body-name": "data"
+        },
+        "post": {
+          "tags": [
+            "orbcomm"
+          ],
+          "summary": "Lista os dados armazenados",
+          "description": "Busca lista de dados Orbcomm armazenados com valores formatados.",
+          "operationId": "orbcommList",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrbcommListBody"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Orbcomm"
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateOrUpdateErrorResponse"
+                  }
+                }
+              }
+            }
+          },
+          "x-codegen-request-body-name": "data"
         }
       }
     },
@@ -294,6 +347,16 @@
               "title": "Password",
               "minLength": 1,
               "type": "string"
+            }
+          }
+        },
+        "OrbcommListBody": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "id",
+              "type": "string",
+              "description": "Filtra os resultados a partir do identificador da mensagem."
             }
           }
         },
