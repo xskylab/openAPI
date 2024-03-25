@@ -356,10 +356,12 @@
             "id": {
               "title": "ID",
               "type": "string",
+              "example": "1651231871",
               "description": "Filtra os resultados a partir do código identificador da mensagem."
             },
             "station":{
               "type": "string",
+              "example": "A998",
               "description": "Filtra os resultados a partir do identificador da estação."
             },
             "start_date":{
