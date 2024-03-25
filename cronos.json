@@ -355,7 +355,7 @@
           "properties": {
             "id": {
               "title": "ID",
-              "type": "string",
+              "type": "integer",
               "example": "1651231871",
               "description": "Filtra os resultados a partir do código identificador da mensagem."
             },
