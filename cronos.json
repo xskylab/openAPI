@@ -384,14 +384,24 @@
               "example": "A998",
               "description": "Filtra os resultados a partir do identificador da estação."
             },
+            "start_datetime":{
+              "description": "Filtra os resultados com data e hora superior ou igual ao parametro informado.",
+              "example": "2023-12-01 20:00:00",
+              "type": "datetime"
+            },
+            "end_datetime":{
+              "description": "Filtra os resultados com data e hora inferior ou igual ao parametro informado.",
+              "example": "2023-12-01 20:00:00",
+              "type": "datetime"
+            },
             "start_date":{
               "description": "Filtra os resultados com data superior ou igual ao parametro informado.",
-              "example": "2023-12-01 20:00:00",
+              "example": "2023-12-01",
               "type": "datetime"
             },
             "end_date":{
               "description": "Filtra os resultados com data inferior ou igual ao parametro informado.",
-              "example": "2023-12-01 20:00:00",
+              "example": "2023-12-01",
               "type": "datetime"
             }
           }
