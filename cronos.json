@@ -203,9 +203,9 @@
               }
             },
             {
-              "name": "start_date",
+              "name": "start_datetime",
               "in": "query",
-              "description": "Filtra os resultados com data superior ou igual ao parametro informado.",
+              "description": "Filtra os resultados com data e hora superior ou igual ao parametro informado.",
               "example": "2023-12-01 20:00:00",
               "required": false,
               "schema": {
@@ -213,13 +213,33 @@
               }
             },
             {
-              "name": "end_date",
+              "name": "end_datetime",
               "in": "query",
-              "description": "Filtra os resultados com data inferior ou igual ao parametro informado.",
+              "description": "Filtra os resultados com data e hora inferior ou igual ao parametro informado.",
               "example": "2024-03-01 13:00:00",
               "required": false,
               "schema": {
                 "type": "datetime"
+              }
+            },
+            {
+              "name": "start_date",
+              "in": "query",
+              "description": "Filtra os resultados com data superior ou igual ao parametro informado.",
+              "example": "2023-12-01",
+              "required": false,
+              "schema": {
+                "type": "date"
+              }
+            },
+            {
+              "name": "end_date",
+              "in": "query",
+              "description": "Filtra os resultados com data inferior ou igual ao parametro informado.",
+              "example": "2024-03-01",
+              "required": false,
+              "schema": {
+                "type": "date"
               }
             }
           ],
@@ -485,6 +505,11 @@
               "type": "string",
               "format": "date-time",
               "readOnly": true
+            },
+            "station": {
+              "title": "Station",
+              "type": "string",
+              "x-nullable": true
             }
           }
         }
