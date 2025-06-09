@@ -241,6 +241,16 @@
               "schema": {
                 "type": "date"
               }
+            },
+            {
+              "name": "id_greater_than",
+              "in": "query",
+              "description": "Filtra os resultados com o código identificador da mensagem maior do que o parametro informado.",
+              "example": "1651231871",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
             }
           ],
           "responses": {
@@ -403,6 +413,11 @@
               "description": "Filtra os resultados com data inferior ou igual ao parametro informado.",
               "example": "2023-12-01",
               "type": "datetime"
+            },
+            "id_greater_than":{
+              "description": "Filtra os resultados com o código identificador da mensagem maior do que o parametro informado.",
+              "example": "1651231871",
+              "type": "integer"
             }
           }
         },
