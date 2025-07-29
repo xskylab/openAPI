@@ -1,3 +1,4 @@
+
 {
     "swagger": "2.0",
     "info": {
@@ -29,7 +30,7 @@
       }
     ],
     "paths": {
-      "/agro/owner/{id}/properties/": {
+      "/agro/owner/{id}/properties": {
         "get": {
           "operationId": "agro_owner_properties_list",
           "description": "Retrieve owner properties data from Google BigQuery",
@@ -84,7 +85,7 @@
           }
         ]
       },
-      "/agro/property/{id}/": {
+      "/agro/property/{id}": {
         "get": {
           "operationId": "agro_property_read",
           "description": "Retrieve owner properties data from Google BigQuery",
@@ -139,7 +140,7 @@
           }
         ]
       },
-      "/agro/report/consult/": {
+      "/agro/report/consult": {
         "post": {
           "operationId": "agro_report_consult_create",
           "description": "Generate Consult Plan Report",
@@ -262,7 +263,7 @@
         },
         "parameters": []
       },
-      "/agro/report/consult/batch/": {
+      "/agro/report/consult/batch": {
         "post": {
           "operationId": "agro_report_consult_batch_create",
           "description": "Post Consult Plan Report on queue",
@@ -322,7 +323,7 @@
         },
         "parameters": []
       },
-      "/agro/report/consult/logs/": {
+      "/agro/report/consult/logs": {
         "get": {
           "operationId": "agro_report_consult_logs_list",
           "description": "Retrieve a single Consult Plan Report log",
@@ -367,7 +368,7 @@
         },
         "parameters": []
       },
-      "/agro/report/consult/{id}/log/": {
+      "/agro/report/consult/{id}/log": {
         "get": {
           "operationId": "agro_report_consult_log_read",
           "description": "Retrieve a single Consult Plan Report log",
@@ -393,7 +394,7 @@
           }
         ]
       },
-      "/agro/report/inventory/": {
+      "/agro/report/inventory": {
         "post": {
           "operationId": "agro_report_inventory_create",
           "description": "Post area properties on Google BigQuery",
@@ -473,7 +474,7 @@
         },
         "parameters": []
       },
-      "/agro/report/socio-environmental/": {
+      "/agro/report/socio-environmental": {
         "post": {
           "operationId": "agro_report_socio-environmental_create",
           "description": "Post SocioEnvironmental report on queue",
@@ -558,7 +559,7 @@
         },
         "parameters": []
       },
-      "/agro/report/socio-environmental/catalog/update/": {
+      "/agro/report/socio-environmental/catalog/update": {
         "post": {
           "operationId": "agro_report_socio-environmental_catalog_update_create",
           "description": "Post SocioEnvironmental image update",
@@ -593,7 +594,7 @@
         },
         "parameters": []
       },
-      "/agro/report/socio-environmental/logs/": {
+      "/agro/report/socio-environmental/logs": {
         "get": {
           "operationId": "agro_report_socio-environmental_logs_list",
           "description": "Retrieve a multiple SocioEnv Report log",
@@ -615,7 +616,7 @@
         },
         "parameters": []
       },
-      "/agro/report/socio-environmental/status/update/": {
+      "/agro/report/socio-environmental/status/update": {
         "post": {
           "operationId": "agro_report_socio-environmental_status_update_create",
           "description": "Create a new SocioEnv Report status",
@@ -643,7 +644,7 @@
         },
         "parameters": []
       },
-      "/agro/report/socio-environmental/{id}/log/": {
+      "/agro/report/socio-environmental/{id}/log": {
         "get": {
           "operationId": "agro_report_socio-environmental_log_read",
           "description": "Retrieve a single Consult Plan Report log",
@@ -669,10 +670,1122 @@
           }
         ]
       },
+      "/agro/contacts": {
+        "get": {
+            "operationId": "agro_contact_list",
+            "description": "Retrieve a list of contacts",
+            "summary": "List Contacts",
+            "parameters": [
+              {
+                "name": "page",
+                "in": "query",
+                "description": "A page number within the paginated result set.",
+                "required": false,
+                "type": "integer"
+              },
+              {
+                "name": "page_size",
+                "in": "query",
+                "description": "Number of results to return per page.",
+                "required": false,
+                "type": "integer"
+              },
+              {
+                "name": "query",
+                "in": "query",
+                "description": "Search query to filter contacts by name or email.",
+                "required": false,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "A list of contacts",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Contact"
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad request"
+              }
+            },
+            "tags": [
+              "agro:Contact"
+            ]
+        },
+        "post": {
+          "operationId": "agro_contact_create",
+          "description": "Create a new contact",
+          "summary": "Create Contact",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cpf": {
+                      "type": "string",
+                      "description": "Contact's CPF"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Contact's name"
+                    },
+                    "birthdate": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "Contact's birthdate"
+                    },
+                    "apf": {
+                      "type": "string",
+                      "description": "Contact's APF"
+                    },
+                    "car": {
+                      "type": "string",
+                      "description": "Contact's car"
+                    },
+                    "nirf": {
+                      "type": "string",
+                      "description": "Contact's NIRF"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Contact created successfully",
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        }
+      },
+      "/agro/contacts/{id}": {
+        "get": {
+          "operationId": "agro_contact_read",
+          "description": "Retrieve a single contact by ID",
+          "summary": "Get Contact by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the contact to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Contact details",
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              }
+            },
+            "404": {
+              "description": "Contact not found"
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        },
+        "delete": {
+          "operationId": "agro_contact_delete",
+          "description": "Delete Contact",
+          "summary": "Delete Contact by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Contact deleted successfully"
+            },
+            "404": {
+              "description": "Contact not found"
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        },
+        "patch": {
+          "operationId": "agro_contact_update",
+          "description": "Update Contact",
+          "summary": "Update Contact by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Contact updated successfully",
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              }
+            },
+            "404": {
+              "description": "Contact not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        }
+      },
+      "/agro/contacts/batch":{
+        "post": {
+          "operationId": "agro_contact_batch_create",
+          "description": "Create new contacts in batch",
+          "summary": "Create Contacts in Batch",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "cpf": {
+                      "type": "string",
+                      "description": "Contact's CPF"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Contact's name"
+                    },
+                    "birthdate": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "Contact's birthdate"
+                    },
+                    "apf": {
+                      "type": "string",
+                      "description": "Contact's APF"
+                    },
+                    "car": {
+                      "type": "string",
+                      "description": "Contact's car"
+                    },
+                    "nirf": {
+                      "type": "string",
+                      "description": "Contact's NIRF"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Contacts added to queue",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Success message"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        }
+      },
+      "/agro/contacts/stats": {
+        "get": {
+          "operationId": "agro_contact_stats",
+          "description": "Get statistics about contacts",
+          "summary": "Get Contact Statistics",
+          "parameters": [
+            {
+              "name": "uf",
+              "in": "query",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "county",
+              "in": "query",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+              "200": {
+                "description": "Contact statistics",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "num_properties": {
+                      "type": "integer",
+                      "description": "Number of properties"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total area of properties"
+                    },
+                    "regions": {
+                      "type": "object",
+                      "properties": {
+                        "norte": {
+                          "type": "integer",
+                          "description": "Number of contacts in the North region"
+                        },
+                        "nordeste": {
+                          "type": "integer",
+                          "description": "Number of contacts in the Northeast region"
+                        },
+                        "centro_oeste": {
+                          "type": "integer",
+                          "description": "Number of contacts in the Central-West region"
+                        },
+                        "sudeste": {
+                          "type": "integer",
+                          "description": "Number of contacts in the Southeast region"
+                        },
+                        "sul": {
+                          "type": "integer",
+                          "description": "Number of contacts in the South region"
+                        }
+                    }
+                  },
+                  "solo": {
+                    "type": "object",
+                    "properties": {
+                      "area_reserva_legal": {
+                        "type": "integer",
+                        "description": "Total area of legal reserve"
+                      },
+                      "area_vegetacao_nativa": {
+                        "type": "integer",
+                        "description": "Total area of native vegetation"
+                      },
+                      "area_consolidada": {
+                        "type": "integer",
+                        "description": "Total area of consolidated land"
+                      }
+                    }
+                  },
+                  "demonstrative_car_error": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "num_contacts": {
+                    "type": "integer",
+                    "description": "Total number of contacts"
+                  },
+                  "num_processes": {
+                    "type": "integer",
+                    "description": "Total number of processes"
+                  },
+                  "trabalho_escravo": {
+                    "type": "integer",
+                    "description": "Number of contacts with slave labor issues"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        }
+      },
+      "/agro/contacts/{id}/property-metrics": {
+        "get": {
+          "operationId": "agro_contact_property_metrics",
+          "description": "Get property metrics for a contact",
+          "summary": "Get Property Metrics by Contact ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the contact"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property metrics for the contact",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contiguous_deforestation": {
+                    "type": "integer",
+                    "description": "Total area of contiguous deforestation"
+                  },
+                  "neighbor_deforestation": {
+                    "type": "integer",
+                    "description": "Total area of neighboring deforestation"
+                  },
+                  "total_deforestation": {
+                    "type": "integer",
+                    "description": "Total area of deforestation"
+                  },
+                  "deforestation_years": {
+                    "type": "array"
+                  },
+                  "embargoed_area": {
+                    "type": "integer",
+                    "description": "Total area under embargo"
+                  },
+                  "conservation_units": {
+                    "type": "object"
+                  },
+                  "public_forest": {
+                    "type": "object"
+                  },
+                  "indigenous_reserves": {
+                    "type": "object"
+                  },
+                  "human_settlements": {
+                    "type": "object"
+                  },
+                  "quilombos": {
+                    "type": "object"
+                  },
+                  "consolidated_area": {
+                    "type": "integer",
+                    "description": "Total area of consolidated land"
+                  },
+                  "legal_reserve_area_declared": {
+                    "type": "integer",
+                    "description": "Total area of legal reserve declared"
+                  },
+                  "legal_reserve_area_proposal": {
+                    "type": "integer",
+                    "description": "Total area of legal reserve proposal"
+                  },
+                  "native_vegetation_area": {
+                    "type": "integer",
+                    "description": "Total area of native vegetation"
+                  },
+                  "deforestation_rate": {
+                    "type": "number",
+                    "description": "Deforestation rate in the last 5 years"
+                  },
+                  "remote_sensing": {
+                    "type": "object"
+                  },
+                  "total_area_ha": {
+                    "type": "integer",
+                    "description": "Total area in hectares"
+                  },
+                  "biomes": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Contact not found"
+            }
+          },
+          "tags": [
+            "agro:Contact"
+          ]
+        }
+      },
+      "/agro/properties": {
+        "get": {
+          "description": "Retrieve a list of properties",
+          "operationId": "agro_property_list",
+          "summary": "List Properties",
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "A page number within the paginated result set.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "page_size",
+              "in": "query",
+              "description": "Number of results to return per page.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "contact_id",
+              "in": "query",
+              "description": "Filter properties by contact ID.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "uf",
+              "in": "query",
+              "description": "Filter properties by state (UF).",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "county",
+              "in": "query",
+              "description": "Filter properties by county.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "car_status",
+              "in": "query",
+              "description": "Filter properties by CAR status.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "query",
+              "in": "query",
+              "description": "Search query to filter properties by name or NIRF.",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A list of properties.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Property"
+                }
+              }
+            },
+            "404": {
+              "description": "No properties found."
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        },
+        "post": {
+          "operationId": "agro_property_create",
+          "description": "Create Property",
+          "summary": "Create Property",
+          "parameters": [
+            {
+              "name": "contact_id",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "ID of the contact associated with the property"
+              }
+            },
+            {
+              "name": "geom",
+              "in": "body",
+              "required": false,
+              "schema": {
+                "type": "object",
+                "description": "Feature Collection geometry to search for properties"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Property created successfully",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Property"
+                }
+              }
+            },
+            "204": {
+              "description": "No content"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Contact not found"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }
+      },
+      "/agro/properties/{id}": {
+        "get": {
+          "operationId": "agro_property_read_id",
+          "description": "Retrieve a single property by ID",
+          "summary": "Get Property by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the property to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property details",
+              "schema": {
+                "$ref": "#/definitions/Property"
+              }
+            },
+            "404": {
+              "description": "Property not found"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        },
+        "delete": {
+          "operationId": "agro_property_delete",
+          "description": "Delete Property",
+          "summary": "Delete Property by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Property deleted successfully"
+            },
+            "404": {
+              "description": "Property not found"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }
+      },
+      "/agro/properties/{id}/overlap": {
+        "get": {
+          "operationId": "agro_property_overlap",
+          "description": "Gets all overlaps and landuse for a property",
+          "summary": "Get Property Overlaps and Landuse",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the property"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property overlaps and landuse data",
+              "schema": {
+                "type": "object",
+                "description": "Feature Collection geometry with overlaps and landuse"
+              }
+            },
+            "404": {
+              "description": "Property not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }
+      },
+      "/agro/properties/states-cities": {
+        "get": {
+          "operationId": "agro_property_states_cities",
+          "description": "Retrieve states and cities for properties",
+          "summary": "Get States and Cities for Properties",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "List of states and cities",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ufs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "cities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }
+      },
+      "/agro/properties/{id}/favorite": {
+        "post": {
+          "operationId": "agro_property_favorite",
+          "description": "Toggle Property Favorite",
+          "summary": "Toggle Property Favorite Status",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the property to toggle favorite status"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property",
+              "schema": {
+                "$ref": "#/definitions/Property"
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }
+      },
+      "/agro/properties/{id}/intersection": {
+        "get": {
+          "operationId": "agro_property_intersection",
+          "description": "Get All Property Intersections of a given property",
+          "summary": "Get Property Intersections",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the property to retrieve intersections for"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Feature Collection with all intersections",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "FeatureCollection"
+                    ]
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Feature"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Property not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }   
+      },
+      "/agro/gleba": {
+        "get": {
+          "operationId": "agro_gleba_list",
+          "description": "Retrieve a list of glebas",
+          "summary": "List Glebas",
+          "parameters": [
+            {
+              "name": "property_id",
+              "in": "query", 
+              "description": "Filter glebas by property ID.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A list of glebas.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Gleba"
+                }
+              }
+            },
+            "404": {
+              "description": "No glebas found."
+            }
+          },
+          "tags": [
+            "agro:Gleba"
+          ]
+        },
+        "post": {
+          "operationId": "agro_gleba_create",
+          "description": "Create Gleba",
+          "summary": "Create Gleba",
+          "parameters": [
+              {
+                "name": "data",
+                "in": "body",
+                "required": true,
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "property_id": {
+                      "type": "integer",
+                      "description": "ID of the property associated with the gleba"
+                    },
+                    "geometry": {
+                      "type": "object",
+                      "description": "Feature Collection geometry to search for glebas"
+                    }
+                  }
+                }
+              }
+          ],
+          "responses": {
+            "201": {
+              "description": "Gleba created successfully",
+              "schema": {
+                "$ref": "#/definitions/Gleba"
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal Server Error - Unexpected issue occurred."
+            }
+          },
+          "tags": [
+            "agro:Gleba"
+          ]
+        }
+      },
+      "/agro/gleba/{id}": {
+        "get": {
+          "operationId": "agro_gleba_read_id",
+          "description": "Retrieve a single gleba by ID",
+          "summary": "Get Gleba by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the gleba to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Gleba details",
+              "schema": {
+                "$ref": "#/definitions/Gleba"
+              }
+            },
+            "404": {
+              "description": "Gleba not found"
+            }
+          },
+          "tags": [
+            "agro:Gleba"
+          ]
+        },
+        "delete": {
+          "operationId": "agro_gleba_delete",
+          "description": "Delete Gleba",
+          "summary": "Delete Gleba by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Gleba deleted successfully"
+            },
+            "404": {
+              "description": "Gleba not found"
+            }
+          },
+          "tags": [
+            "agro:Gleba"
+          ]
+        },
+        "patch": {
+          "operationId": "agro_gleba_update",
+          "description": "Update Gleba",
+          "summary": "Update Gleba by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "type": "object",
+              "properties": {
+                "geometry": {
+                  "type": "object",
+                  "description": "Feature Collection geometry to update the gleba"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Gleba updated successfully",
+              "schema": {
+                "$ref": "#/definitions/Gleba"
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Gleba not found"
+            }
+          },
+          "tags": [
+            "agro:Gleba"
+          ]
+        }
+      },
+      "/agro/upload": {
+        "get": {
+          "operationId": "agro_upload_list",
+          "description": "Retrieve a list of uploads files",
+          "summary": "List Files",
+          "parameters": [
+            {
+              "name": "contact",
+              "in": "query",
+              "description": "Filter uploads by contact ID.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A list of upload files.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "No files found."
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "agro:Upload"
+          ]
+        },
+        "delete": {
+          "operationId": "agro_upload_delete",
+          "description": "Delete one or more uploaded files for a contact from Google Cloud Storage (GCS).",
+          "summary": "Delete Upload(s) by contact and file ID(s)",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contact": {
+                    "type": "integer",
+                    "description": "Contact ID associated with the uploaded files."
+                  },
+                  "file_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Array of file IDs to delete."
+                  }
+                },
+                "required": ["contact", "file_id"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Result of the delete operation.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deleted": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of successfully deleted files."
+                  },
+                  "not_found": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of files not found."
+                  },
+                  "forbidden": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of files that cannot be deleted."
+                  }
+                }
+              }
+            },
+            "204": {
+              "description": "Upload deleted successfully (no content returned)."
+            },
+            "400": {
+              "description": "Missing required parameters or invalid data."
+            },
+            "404": {
+              "description": "Upload not found."
+            }
+          },
+          "tags": [
+            "agro:Upload"
+          ]
+        },
+        "post": {
+          "operationId": "agro_upload_create",
+          "description": "Upload one or more files for a contact to Google Cloud Storage (GCS).",
+          "summary": "Upload file(s) for a contact",
+          "parameters": [
+            {
+              "name": "contact",
+              "in": "formData",
+              "required": true,
+              "type": "integer",
+              "description": "Contact ID associated with the uploaded files."
+            },
+            {
+              "name": "file",
+              "in": "formData",
+              "required": true,
+              "type": "file",
+              "description": "File(s) to upload. Multiple files can be uploaded."
+            }
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "responses": {
+            "201": {
+              "description": "Files uploaded successfully.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "file_id": {
+                      "type": "string",
+                      "description": "ID or name of the uploaded file."
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "URL of the uploaded file in GCS."
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Missing required parameters or invalid data."
+            },
+            "404": {
+              "description": "Contact not found."
+            }
+          },
+          "tags": [
+            "agro:Upload"
+          ]
+        }
+      },
       "/auth/change-password": {
         "post": {
           "operationId": "auth_change-password_create",
           "description": "Change User password",
+          "summary": "Change User Password",
           "parameters": [
             {
               "name": "data",
@@ -733,7 +1846,7 @@
         },
         "parameters": []
       },
-      "/auth/obtain_token/": {
+      "/auth/obtain_token": {
         "post": {
           "operationId": "auth_obtain_token_create",
           "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
@@ -773,7 +1886,7 @@
         },
         "parameters": []
       },
-      "/auth/refresh_token/": {
+      "/auth/refresh_token": {
         "post": {
           "operationId": "auth_refresh_token_create",
           "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
@@ -806,24 +1919,35 @@
         },
         "parameters": []
       },
-      "/auth/reset-password": {
+      "/auth/modify-password": {
         "post": {
-          "operationId": "auth_reset-password_create",
-          "description": "Reset user's password and send to email.",
+          "operationId": "auth_modify_password",
+          "description": "Change the authenticated user's password.",
+          "summary": "Change User Password (Authenticated)",
           "parameters": [
             {
               "name": "data",
               "in": "body",
               "required": true,
               "schema": {
-                "required": [
-                  "username"
-                ],
                 "type": "object",
+                "required": [
+                  "old_password",
+                  "new_password",
+                  "confirm_new_password"
+                ],
                 "properties": {
-                  "username": {
-                    "description": "User's username",
-                    "type": "string"
+                  "old_password": {
+                    "type": "string",
+                    "description": "Current password of the user"
+                  },
+                  "new_password": {
+                    "type": "string",
+                    "description": "New password"
+                  },
+                  "confirm_new_password": {
+                    "type": "string",
+                    "description": "Confirmation of the new password"
                   }
                 }
               }
@@ -831,25 +1955,36 @@
           ],
           "responses": {
             "200": {
-              "description": "Password reset success response",
+              "description": "Password changed successfully",
               "schema": {
                 "type": "object",
                 "properties": {
                   "message": {
-                    "description": "Success message",
+                    "type": "string",
+                    "example": "Password changed successfully"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request (missing fields, passwords do not match, or new password is same as old)",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
                     "type": "string"
                   }
                 }
               }
             },
-            "404": {
-              "description": "User not found",
+            "403": {
+              "description": "Old password is incorrect",
               "schema": {
                 "type": "object",
                 "properties": {
                   "message": {
-                    "description": "User not found message",
-                    "type": "string"
+                    "type": "string",
+                    "example": "Old password is incorrect"
                   }
                 }
               }
@@ -858,10 +1993,9 @@
           "tags": [
             "auth:password"
           ]
-        },
-        "parameters": []
+        }
       },
-      "/imagery/image/": {
+      "/imagery/image": {
         "post": {
           "operationId": "imagery_image_create",
           "description": "Process TMS of a list of images.",
@@ -933,7 +2067,7 @@
         },
         "parameters": []
       },
-      "/imagery/image/status/logs/": {
+      "/imagery/image/status/logs": {
         "get": {
           "operationId": "imagery_image_status_logs_list",
           "description": "Retrieve a multiple image processing request log",
@@ -985,7 +2119,7 @@
         },
         "parameters": []
       },
-      "/imagery/image/status/update/": {
+      "/imagery/image/status/update": {
         "post": {
           "operationId": "imagery_image_status_update_create",
           "description": "Create a new process status",
@@ -1021,7 +2155,7 @@
         },
         "parameters": []
       },
-      "/imagery/image/status/{id}/log/": {
+      "/imagery/image/status/{id}/log": {
         "get": {
           "operationId": "imagery_image_status_log_read",
           "description": "Retrieve a single image processing request log",
@@ -1048,7 +2182,7 @@
           }
         ]
       },
-      "/imagery/image/{name}/": {
+      "/imagery/image/{name}": {
         "get": {
           "operationId": "imagery_image_read",
           "description": "Retrieve Gaia's selected image detail.",
@@ -1082,7 +2216,7 @@
           }
         ]
       },
-      "/imagery/images/": {
+      "/imagery/images": {
         "get": {
           "operationId": "imagery_images_list",
           "description": "Retrieve Gaia's list of permitted images.",
@@ -1173,7 +2307,7 @@
         },
         "parameters": []
       },
-      "/imagery/satellites/": {
+      "/imagery/satellites": {
         "get": {
           "operationId": "imagery_satellites_list",
           "description": "Retrieve Gaia's list of permitted satellites.",
@@ -1215,7 +2349,7 @@
         },
         "parameters": []
       },
-      "/layer/basemap/": {
+      "/layer/basemap": {
         "get": {
           "operationId": "layer_basemap_list",
           "description": "Basemap view creates list and data.",
@@ -1292,7 +2426,7 @@
         },
         "parameters": []
       },
-      "/layer/basemap/{id}/": {
+      "/layer/basemap/{id}": {
         "get": {
           "operationId": "layer_basemap_read",
           "description": "Class for delete and update Basemap data.",
@@ -1382,7 +2516,7 @@
           }
         ]
       },
-      "/layer/bookmark/": {
+      "/layer/bookmark": {
         "get": {
           "operationId": "layer_bookmark_list",
           "description": "Bookmark list view data.",
@@ -1459,7 +2593,7 @@
         },
         "parameters": []
       },
-      "/layer/bookmark/{id}/": {
+      "/layer/bookmark/{id}": {
         "get": {
           "operationId": "layer_bookmark_read",
           "description": "Bookmark delete view.",
@@ -1548,7 +2682,7 @@
           }
         ]
       },
-      "/layer/filter/": {
+      "/layer/filter": {
         "get": {
           "operationId": "layer_filter_list",
           "description": "Layer Filter  preview and creation data view.",
@@ -1625,7 +2759,7 @@
         },
         "parameters": []
       },
-      "/layer/geoserver/": {
+      "/layer/geoserver": {
         "get": {
           "operationId": "layer_geoserver_list",
           "description": "View list and create for Geoserver.",
@@ -1702,7 +2836,7 @@
         },
         "parameters": []
       },
-      "/layer/geoserver/{id}/": {
+      "/layer/geoserver/{id}": {
         "get": {
           "operationId": "layer_geoserver_read",
           "description": "View update and delete by ID in Geoserver.",
@@ -1792,7 +2926,7 @@
           }
         ]
       },
-      "/layer/group/{id}/": {
+      "/layer/group/{id}": {
         "get": {
           "operationId": "layer_group_read",
           "description": "Layer view list data by group.",
@@ -1858,7 +2992,7 @@
           }
         ]
       },
-      "/layer/groups/": {
+      "/layer/groups": {
         "get": {
           "operationId": "layer_groups_list",
           "description": "Layer Group view creates list and data.",
@@ -1949,7 +3083,7 @@
         },
         "parameters": []
       },
-      "/layer/tms/": {
+      "/layer/tms": {
         "get": {
           "operationId": "layer_tms_list",
           "description": "View for listing and creating Tms instances.",
@@ -2026,7 +3160,7 @@
         },
         "parameters": []
       },
-      "/layer/vector/": {
+      "/layer/vector": {
         "get": {
           "operationId": "layer_vector_list",
           "description": "Vector list and create view data.",
@@ -2110,7 +3244,7 @@
         },
         "parameters": []
       },
-      "/layer/vector/geometries/": {
+      "/layer/vector/geometries": {
         "get": {
           "operationId": "layer_vector_geometries_list",
           "description": "Vector list and create view data.",
@@ -2194,7 +3328,7 @@
         },
         "parameters": []
       },
-      "/layer/vector/{id}/": {
+      "/layer/vector/{id}": {
         "get": {
           "operationId": "layer_vector_read",
           "description": "View to retrieve `models.UserUploadedFileGeometry` model data.",
@@ -2267,7 +3401,7 @@
           }
         ]
       },
-      "/layer/vector/{id}/detail/": {
+      "/layer/vector/{id}/detail": {
         "get": {
           "operationId": "layer_vector_detail_read",
           "description": "View to retrieve `models.VectorGeometry` model data.",
@@ -2294,7 +3428,7 @@
           }
         ]
       },
-      "/layer/wms/": {
+      "/layer/wms": {
         "get": {
           "operationId": "layer_wms_list",
           "description": "View for listing and creating Wms instances.",
@@ -2371,7 +3505,7 @@
         },
         "parameters": []
       },
-      "/layer/{id}/": {
+      "/layer/{id}": {
         "get": {
           "operationId": "layer_read",
           "description": "Layer Retrieve View.",
@@ -2398,7 +3532,7 @@
           }
         ]
       },
-      "/layer/{id}/filter/": {
+      "/layer/{id}/filter": {
         "get": {
           "operationId": "layer_filter_read",
           "description": "Layer Filter  delete and update data.",
@@ -2488,7 +3622,7 @@
           }
         ]
       },
-      "/layer/{id}/groups/": {
+      "/layer/{id}/groups": {
         "get": {
           "operationId": "layer_groups_read",
           "description": "Class for delete and update Group data.",
@@ -2578,7 +3712,7 @@
           }
         ]
       },
-      "/layer/{id}/image/": {
+      "/layer/{id}/image": {
         "get": {
           "operationId": "layer_image_list",
           "description": "Fetches the layer by identifier and returns the thumbnail image.",
@@ -2601,7 +3735,7 @@
           }
         ]
       },
-      "/layer/{id}/image/base64/": {
+      "/layer/{id}/image/base64": {
         "get": {
           "operationId": "layer_image_base64_list",
           "description": "Fetches the layer by identifier and returns the thumbnail image.",
@@ -2624,7 +3758,7 @@
           }
         ]
       },
-      "/layer/{id}/legend/": {
+      "/layer/{id}/legend": {
         "get": {
           "operationId": "layer_legend_list",
           "description": "Fetches the layer by identifier and returns the legend image.",
@@ -2647,7 +3781,7 @@
           }
         ]
       },
-      "/layer/{id}/legend/base64/": {
+      "/layer/{id}/legend/base64": {
         "get": {
           "operationId": "layer_legend_base64_list",
           "description": "Fetches the layer by identifier and returns the thumbnail image.",
@@ -2670,7 +3804,7 @@
           }
         ]
       },
-      "/layer/{id}/tms/": {
+      "/layer/{id}/tms": {
         "get": {
           "operationId": "layer_tms_read",
           "description": "View for updating and deleting Tms instance.",
@@ -2760,9 +3894,9 @@
           }
         ]
       },
-      "/layer/{id}/vector/": {
+      "/layer/{id}/vector": {
         "get": {
-          "operationId": "layer_vector_read",
+          "operationId": "layer_vector_read_unique",
           "description": "Vector retrieve, update and delete view.",
           "parameters": [],
           "responses": {
@@ -2850,7 +3984,7 @@
           }
         ]
       },
-      "/layer/{id}/vector/geometries/": {
+      "/layer/{id}/vector/geometries": {
         "get": {
           "operationId": "layer_vector_geometries_read",
           "description": "Vector Geometry retrieve, update and delete view.",
@@ -2940,7 +4074,7 @@
           }
         ]
       },
-      "/layer/{id}/wms/": {
+       "/layer/{id}/wms": {
         "get": {
           "operationId": "layer_wms_read",
           "description": "View for updating and deleting Wms instance.",
@@ -3030,7 +4164,7 @@
           }
         ]
       },
-      "/management/time/": {
+      "/management/time": {
         "post": {
           "operationId": "management_time_create",
           "description": "Post User system usage.",
@@ -3064,7 +4198,7 @@
         },
         "parameters": []
       },
-      "/management/usages/": {
+      "/management/usages": {
         "get": {
           "operationId": "management_usages_list",
           "description": "API for listing usage data.",
@@ -3144,7 +4278,7 @@
         },
         "parameters": []
       },
-      "/permission/eagle-eye/auth/": {
+      "/permission/eagle-eye/auth": {
         "get": {
           "operationId": "permission_eagle-eye_auth_list",
           "description": "Generate EagleEye auth token",
@@ -3170,7 +4304,7 @@
         },
         "parameters": []
       },
-      "/permission/eagle-eye/refresh/": {
+      "/permission/eagle-eye/refresh": {
         "get": {
           "operationId": "permission_eagle-eye_refresh_list",
           "description": "Refresh EagleEye auth token",
@@ -3189,7 +4323,7 @@
         },
         "parameters": []
       },
-      "/permission/eagle-eye/token/": {
+      "/permission/eagle-eye/token": {
         "get": {
           "operationId": "permission_eagle-eye_token_list",
           "description": "Retrieve the last EagleEye token",
@@ -3208,7 +4342,7 @@
         },
         "parameters": []
       },
-      "/permission/layer/": {
+      "/permission/layer": {
         "get": {
           "operationId": "permission_layer_list",
           "description": "LayerPermission list and create view data.",
@@ -3285,7 +4419,7 @@
         },
         "parameters": []
       },
-      "/permission/layer/{id}/": {
+      "/permission/layer/{id}": {
         "get": {
           "operationId": "permission_layer_read",
           "description": "LayerPermission retrieve, update and destroy view data.",
@@ -3375,7 +4509,7 @@
           }
         ]
       },
-      "/smart_cities/algorithm/": {
+      "/smart_cities/algorithm": {
         "get": {
           "operationId": "smart_cities_algorithm_list",
           "description": "API endpoint to retrieve and create Algorithm model data.",
@@ -3452,7 +4586,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/algorithm/group/": {
+      "/smart_cities/algorithm/group": {
         "get": {
           "operationId": "smart_cities_algorithm_group_list",
           "description": "API endpoint to retrieve and create AlgorithmGroup model data.",
@@ -3529,7 +4663,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/algorithm/group/{id}/": {
+      "/smart_cities/algorithm/group/{id}": {
         "get": {
           "operationId": "smart_cities_algorithm_group_read",
           "description": "API endpoint to retrieve and update AlgorithmGroup model data.",
@@ -3619,7 +4753,7 @@
           }
         ]
       },
-      "/smart_cities/algorithm/{id}/": {
+      "/smart_cities/algorithm/{id}": {
         "get": {
           "operationId": "smart_cities_algorithm_read",
           "description": "API endpoint to retrieve and update Algorithm model data.",
@@ -3709,7 +4843,7 @@
           }
         ]
       },
-      "/smart_cities/analytics/": {
+      "/smart_cities/analytics": {
         "get": {
           "operationId": "smart_cities_analytics_list",
           "description": "API endpoint to retrieve and create Analytic model data.",
@@ -3876,7 +5010,7 @@
           }
         ]
       },
-      "/smart_cities/babelstreet/ip/requests/": {
+      "/smart_cities/babelstreet/ip/requests": {
         "get": {
           "operationId": "smart_cities_babelstreet_ip_requests_list",
           "description": "List Babel Street location requests.",
@@ -3928,7 +5062,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/babelstreet/ip/search/": {
+      "/smart_cities/babelstreet/ip/search": {
         "post": {
           "operationId": "smart_cities_babelstreet_ip_search_create",
           "description": "Search Babel Street location by IP address",
@@ -3972,7 +5106,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/babelstreet/log/{id}/": {
+      "/smart_cities/babelstreet/log/{id}": {
         "get": {
           "operationId": "smart_cities_babelstreet_log_read",
           "description": "Get Babel Street location result",
@@ -4062,7 +5196,7 @@
           }
         ]
       },
-      "/smart_cities/babelstreet/registration-id/requests/": {
+      "/smart_cities/babelstreet/registration-id/requests": {
         "get": {
           "operationId": "smart_cities_babelstreet_registration-id_requests_list",
           "description": "List Babel Street location requests.",
@@ -4114,7 +5248,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/babelstreet/registration-id/search/": {
+      "/smart_cities/babelstreet/registration-id/search": {
         "post": {
           "operationId": "smart_cities_babelstreet_registration-id_search_create",
           "description": "Search Babel Street location by registration id",
@@ -4162,7 +5296,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/babelstreet/requests/": {
+      "/smart_cities/babelstreet/requests": {
         "get": {
           "operationId": "smart_cities_babelstreet_requests_list",
           "description": "List Babel Street location requests.",
@@ -4214,7 +5348,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/babelstreet/search/": {
+      "/smart_cities/babelstreet/search": {
         "post": {
           "operationId": "smart_cities_babelstreet_search_create",
           "description": "Search Babel Street location",
@@ -4255,7 +5389,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/clearview/search/": {
+      "/smart_cities/clearview/search": {
         "post": {
           "operationId": "smart_cities_clearview_search_create",
           "description": "Search Clearview image",
@@ -4356,7 +5490,121 @@
         },
         "parameters": []
       },
-      "/smart_cities/drone/": {
+      "/smart_cities/babelstreet/identity/search": {
+        "post": {
+          "operationId": "smart_cities_identity_search",
+          "summary": "Search Babel Street Identity",
+          "description": "Search identity information using Babel Street API.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "description": "First name of the person"
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "Last name of the person"
+                  },
+                  "date_of_birth": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date of birth (YYYY-MM-DD)"
+                  },
+                  "document_number": {
+                    "type": "string",
+                    "description": "Document number (optional)"
+                  }
+                },
+                "required": ["first_name", "last_name"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Identity search result",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "results": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "full_name": { "type": "string" },
+                        "date_of_birth": { "type": "string" },
+                        "document_number": { "type": "string" },
+                        "match_score": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid request"
+            }
+          },
+          "tags": [
+            "smart_cities:babelstreet"
+          ]
+        }
+      },
+      "/smart_cities/babelstreet/identity/log": {
+        "get": {
+          "operationId": "smart_cities_identity_log_list",
+          "description": "List Babel Street identity logs",
+          "summary": "List Babel Street identity logs",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "List of identity logs",
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "tags": [
+            "smart_cities:babelstreet"
+          ]
+        }
+      },
+      "/babelstreet/identity/log/{id}": {
+        "get": {
+          "operationId": "babelstreet_identity_log_read",
+          "description": "Retrieve a specific Babel Street identity log by ID",
+          "summary": "Retrieve Babel Street identity log by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Unique identifier for the identity log"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Identity log details",
+              "schema": {
+                "type": "object"
+              }
+            },
+            "404": {
+              "description": "Identity log not found"
+            }
+          },
+          "tags": [
+            "smart_cities:babelstreet"
+          ]
+        }
+      },
+      "/smart_cities/drone": {
         "post": {
           "operationId": "smart_cities_drone_create",
           "description": "Drone view to set paths.",
@@ -4372,7 +5620,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/drone/list/": {
+      "/smart_cities/drone/list": {
         "get": {
           "operationId": "smart_cities_drone_list_list",
           "description": "List all `models.DronePath` model data.",
@@ -4424,7 +5672,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/drone/{id}/": {
+      "/smart_cities/drone/{id}": {
         "get": {
           "operationId": "smart_cities_drone_read",
           "description": "Retrieve `models.DronePath` model data.",
@@ -4514,7 +5762,7 @@
           }
         ]
       },
-      "/smart_cities/ezbiz/form/dengue/": {
+      "/smart_cities/ezbiz/form/dengue": {
         "post": {
           "operationId": "smart_cities_ezbiz_form_dengue_create",
           "description": "Create Dengue Registration Vector Geometry",
@@ -4614,7 +5862,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/findface/events/": {
+      "/smart_cities/findface/events": {
         "post": {
           "operationId": "smart_cities_findface_events_create",
           "description": "Search interest area events",
@@ -4703,7 +5951,531 @@
         },
         "parameters": []
       },
-      "/smart_cities/form/": {
+      "/smart_cities/findface/watchlists": {
+        "get": {
+          "operationId": "smart_cities_findface_watchlists_list",
+          "summary": "List FindFace Watchlists",
+          "description": "List all watchlists from FindFace",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        },
+        "post": {
+          "operationId": "smart_cities_findface_watchlists_create",
+          "summary": "Create FindFace Watchlist",
+          "description": "Create a new watchlist in FindFace",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the watchlist"
+                  },
+                  "color": {
+                    "type": "string",
+                    "description": "Color of the watchlist"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Watchlist created successfully",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/watchlists/{id}": {
+        "get": {
+          "operationId": "smart_cities_findface_watchlists_read",
+          "summary": "Retrieve FindFace Watchlist",
+          "description": "Retrieve a specific watchlist from FindFace",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID of the watchlist"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Watchlist not found"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        },
+        "patch": {
+          "operationId": "smart_cities_findface_watchlists_update",
+          "summary": "Update FindFace Watchlist",
+          "description": "Update an existing watchlist in FindFace",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID of the watchlist"
+            },
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": ""
+            },
+            "404": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        },
+        "delete": {
+          "operationId": "smart_cities_findface_watchlists_delete",
+          "summary": "Delete FindFace Watchlist",
+          "description": "Delete a specific watchlist from FindFace",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID of the watchlist"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": ""
+            },
+            "404": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/watchlists/human/{id}": {
+        "get": {
+          "operationId": "smart_cities_watchlists_human",
+          "summary": "Retreieve FindFace Human Event From a Watchlist",
+          "description": "Retrieve human events from a specific watchlist in FindFace",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "ID of the watchlist"
+            },
+            {
+              "name": "query",
+              "in": "query",
+              "required": false,
+              "type": "string",
+              "description": "Search query for human events"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of Human Events",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer"},
+                    "name": { "type": "string" },
+                    "thumbnail_url": { "type": "string" },
+                    "comment": { "type": "string" },
+                    "date_created": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Watchlist not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/event": {
+      "post": {
+          "operationId": "smart_cities_findface_event_create",
+          "summary": "Create FindFace Human Event",
+          "description": "Create a new human event in FindFace",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the human event"
+                  },
+                  "watch_lists": {
+                    "type": "string",
+                    "description": "JSON stringified array of watchlist IDs"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "description": "Comment for the event"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image file for the event"
+                  }
+                },
+                "required": ["name", "watch_lists", "photo"]
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Event Created"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/human/event": {
+        "post": {
+          "operationId": "findface_human_event_create",
+          "summary": "Create FindFace Human Event",
+          "description": "Cria um novo evento humano no FindFace.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nome do evento humano"
+                  },
+                  "watch_lists": {
+                    "type": "string",
+                    "description": "JSON stringificado de uma lista de IDs de watchlist"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "description": "Comentário do evento"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Imagem do evento"
+                  }
+                },
+                "required": ["name", "watch_lists", "photo"]
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Evento criado"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/events/match": {
+        "post": {
+          "operationId": "smart_cities_findface_event_match",
+          "summary": "Match FindFace Event",
+          "description": "Recebe eventos de watchlists do FindFace e salva como VectorGeometry.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "matched": {
+                    "type": "boolean",
+                    "description": "Indica se houve correspondência"
+                  },
+                  "matched_card": {
+                    "type": "object",
+                    "description": "Dados do cartão correspondente"
+                  },
+                  "matched_lists": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": { "type": "string" },
+                        "color": { "type": "string" }
+                      }
+                    },
+                    "description": "Lista de watchlists correspondentes"
+                  },
+                  "camera": {
+                    "type": "object",
+                    "properties": {
+                      "longitude": { "type": "number" },
+                      "latitude": { "type": "number" }
+                    },
+                    "description": "Localização da câmera"
+                  },
+                  "thumbnail_url": {
+                    "type": "string",
+                    "description": "URL da imagem miniatura"
+                  }
+                },
+                "required": ["matched", "matched_card", "matched_lists", "camera"]
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Evento recebido e processado"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/events/alerts": {
+        "get": {
+          "operationId": "smart_cities_findface_events_alerts_list",
+          "summary": "List FindFace Event Alerts",
+          "description": "List all event alerts from FindFace",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "List of event alerts",
+              "schema": {
+                "$ref": "#/definitions/Alert"
+              }
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/events/search/alerts": {
+        "get": {
+          "operationId": "smart_cities_findface_events_search_alerts_list",
+          "summary": "Search FindFace Event Alerts",
+          "description": "Search for event alerts in FindFace",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": false,
+              "type": "string",
+              "description": "Search query for event alerts"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of event alerts",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Alert"
+                }
+              }
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/event/alert/acknowledged": {
+        "post": {
+          "operationId": "smart_cities_findface_event_alert_acknowledged",
+          "summary": "Acknowledge FindFace Event Alert",
+          "description": "Acknowledge a specific event alert in FindFace",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "acknowledged": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Alert acknowledged successfully"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/findface/camera/url/{id}": {
+        "get": {
+          "operationId": "smart_cities_findface_camera_url_read",
+          "summary": "Retrieve FindFace Camera URL",
+          "description": "Retrieve the URL of a specific camera in FindFace",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the camera"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Camera URL retrieved successfully",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "URL of the camera"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Camera not found"
+            }
+          },
+          "tags": [
+            "smart_cities:findface"
+          ]
+        }
+      },
+      "/smart_cities/form": {
         "post": {
           "operationId": "smart_cities_form_create",
           "description": "Register Form Data",
@@ -4761,7 +6533,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/form/request/": {
+      "/smart_cities/form/request": {
         "get": {
           "operationId": "smart_cities_form_request_list",
           "description": "List all `models.FormStatus` model data.",
@@ -4813,7 +6585,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/form/update/": {
+      "/smart_cities/form/update": {
         "post": {
           "operationId": "smart_cities_form_update_create",
           "description": "Update Form Status",
@@ -4881,7 +6653,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/image/base64/": {
+      "/smart_cities/image/base64": {
         "post": {
           "operationId": "smart_cities_image_base64_create",
           "description": "Get Base64 data from image",
@@ -4922,7 +6694,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/motorola/cameras/": {
+      "/smart_cities/motorola/cameras": {
         "get": {
           "operationId": "smart_cities_motorola_cameras_list",
           "description": "List all cameras from Motorola",
@@ -4964,7 +6736,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/motorola/events/": {
+      "/smart_cities/motorola/events": {
         "get": {
           "operationId": "smart_cities_motorola_events_list",
           "description": "List all events from Motorola",
@@ -4995,7 +6767,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/motorola/events/cameras/": {
+      "/smart_cities/motorola/events/cameras": {
         "post": {
           "operationId": "smart_cities_motorola_events_cameras_create",
           "description": "List all events interest area from Motorola",
@@ -5127,7 +6899,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/neighborhoods/": {
+      "/smart_cities/neighborhoods": {
         "get": {
           "operationId": "smart_cities_neighborhoods_list",
           "description": "API endpoint to retrieve and filter NeighborhoodsLayer.",
@@ -5260,7 +7032,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/neighborhoods/fields/": {
+      "/smart_cities/neighborhoods/fields": {
         "get": {
           "operationId": "smart_cities_neighborhoods_fields_list",
           "description": "Handle request and return a list of objects NeighborhoodsLayer.",
@@ -5326,7 +7098,7 @@
         },
         "parameters": []
       },
-      "/smart_cities/neighborhoods/properties/{id}/detail/": {
+      "/smart_cities/neighborhoods/properties/{id}/detail": {
         "get": {
           "operationId": "smart_cities_neighborhoods_properties_detail_read",
           "description": "View to retrieve `models.NeighborhoodsLayer` model data.",
@@ -5353,9 +7125,10 @@
           }
         ]
       },
-      "/smart_cities/spectra/": {
+      "/smart_cities/spectra": {
         "post": {
           "operationId": "smart_cities_spectra_create",
+          "summary": "Create Spectra Vector Geometry",
           "description": "Create vector geometry for spectra registration",
           "parameters": [
             {
@@ -5421,7 +7194,37 @@
         },
         "parameters": []
       },
-      "/smart_cities/weather/": {
+      "/smart_cities/spectra/{id}": {
+        "get": {
+          "operationId": "smart_cities_spectra_read",
+          "summary": "Retrieve Spectra Vector Geometry",
+          "description": "Retrieve vector geometry for a specific spectra registration",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the spectra registration"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "$ref": "#/definitions/Alert"
+              }
+            },
+            "404": {
+              "description": "Not Found - Spectra registration does not exist."
+            }
+          },
+          "tags": [
+            "smart_cities:spectra"
+          ]
+        }
+      },
+      "/smart_cities/weather": {
         "get": {
           "operationId": "smart_cities_weather_list",
           "description": "Get weather data",
@@ -5547,84 +7350,390 @@
         },
         "parameters": []
       },
-      "/user/": {
-        "get": {
-          "operationId": "user_list",
-          "description": "\"API to return all users along with their respective sector ID.",
-          "parameters": [
-            {
-              "name": "page",
-              "in": "query",
-              "description": "A page number within the paginated result set.",
-              "required": false,
-              "type": "integer"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "required": [
-                  "count",
-                  "results"
-                ],
-                "type": "object",
-                "properties": {
-                  "count": {
-                    "type": "integer"
-                  },
-                  "next": {
-                    "type": "string",
-                    "format": "uri",
-                    "x-nullable": true
-                  },
-                  "previous": {
-                    "type": "string",
-                    "format": "uri",
-                    "x-nullable": true
-                  },
-                  "results": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/User"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "user:users"
-          ]
-        },
+      "/smart_cities/deepneuronics/events": {
         "post": {
-          "operationId": "user_create",
-          "description": "\"API to return all users along with their respective sector ID.",
+          "operationId": "smart_cities_deepneuronics_events_create",
+          "summary": "Create DeepNeuroNics Event",
+          "description": "Create a new event in DeepNeuroNics",
           "parameters": [
             {
               "name": "data",
               "in": "body",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/User"
+                "type": "object",
+                "properties": {
+                  "classification": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of classification codes"
+                  },
+                  "locations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "geopoint": {
+                          "type": "object",
+                          "properties": {
+                            "lat": { "type": "number" },
+                            "lon": { "type": "number" }
+                          }
+                        },
+                        "geoshape": {
+                          "type": "object",
+                          "description": "GeoJSON shape object"
+                        }
+                      }
+                    },
+                    "description": "List of location objects"
+                  },
+                  "behaviorsentence": {
+                    "type": "string",
+                    "description": "Behavior sentence (optional)"
+                  },
+                  "other_properties": {
+                    "type": "object",
+                    "description": "Other event properties"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Event created successfully"
+            }
+          },
+          "tags": [
+            "smart_cities:deepneuronics"
+          ]
+        }
+      },
+      "/smart_cities/deepneuronics/events/{id}": {
+        "get": {
+          "operationId": "smart_cities_deepneuronics_events_read",
+          "summary": "Retrieve DeepNeuroNics Event",
+          "description": "Retrieve details of a specific event in DeepNeuroNics",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the event"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "$ref": "#/definitions/DeepNeuroNicsEvent"
+              }
+            },
+            "404": {
+              "description": "Event not found"
+            }
+          },
+          "tags": [
+            "smart_cities:deepneuronics"
+          ]
+        }
+      },
+      "/smart_cities/alerts/{id}":{
+        "get": {
+          "operationId": "smart_cities_alerts_read",
+          "summary": "Retrieve Alert",
+          "description": "Retrieve details of a specific alert",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the alert"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "$ref": "#/definitions/Alert"
+              }
+            },
+            "404": {
+              "description": "Alert not found"
+            }
+          },
+          "tags": [
+            "smart_cities:alerts"
+          ]
+        }
+      },
+      "/smart_cities/alerts/history/{id}":{
+        "get": {
+          "operationId": "smart_cities_alerts_history_read",
+          "summary": "Retrieve Alert History",
+          "description": "Retrieve history of a specific alert",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the alert"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Alert History",
+              "schema": {
+                "type": "array"
+              }
+            },
+            "404": {
+              "description": "Alert history not found"
+            }
+          },
+          "tags": [
+            "smart_cities:alerts"
+          ]
+        }
+      },
+      "/smart_cities/alerts": {
+        "get": {
+          "operationId": "smart_cities_alerts_list",
+          "summary": "List Alerts",
+          "description": "List all alerts with optional filtering",
+          "parameters": [
+            {
+              "name": "start_date",
+              "in": "query",
+              "description": "Filter alerts that occurred after this date",
+              "required": false,
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "name": "end_date",
+              "in": "query",
+              "description": "Filter alerts that occurred before this date",
+              "required": false,
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "name": "classification",
+              "in": "query",
+              "description": "Filter alerts by classification",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "event_type",
+              "in": "query",
+              "description": "Filter alerts by event type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "q",
+              "in": "query",
+              "description": "Search term for filtering alerts",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of alerts",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Alert"
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request - Invalid query parameters"
+            }
+          },
+          "tags": [
+            "smart_cities:alerts"
+          ]
+        }
+      },
+      "/smart_cities/report_hotline": {
+        "post": {
+          "operationId": "smart_cities_report_hotline_create",
+          "summary": "Register Hotline Alert",
+          "description": "Register a hotline alert and create an Alert object.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "indicador": {
+                    "type": "string",
+                    "description": "Indicator code for the alert (first 2 chars used for category)"
+                  },
+                  "localizacoes": {
+                    "type": "array",
+                    "description": "List of locations for the alert",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "geopoint": {
+                          "type": "object",
+                          "properties": {
+                            "lat": { "type": "number" },
+                            "lon": { "type": "number" }
+                          }
+                        },
+                        "geoshape": {
+                          "type": "object",
+                          "description": "GeoJSON shape object"
+                        }
+                      }
+                    }
+                  },
+                  "other_properties": {
+                    "type": "object",
+                    "description": "Other alert properties"
+                  }
+                },
+                "required": ["indicador"]
               }
             }
           ],
           "responses": {
             "201": {
-              "description": "",
+              "description": "Hotline alert created",
               "schema": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/Alert"
               }
+            },
+            "400": {
+              "description": "Missing or invalid parameters"
             }
           },
           "tags": [
-            "user:users"
+            "smart_cities:hotline"
           ]
-        },
-        "parameters": []
+        }
       },
-      "/user/file/": {
+      "/smart_cities/victimization": {
+        "post": {
+          "operationId": "smart_cities_victimization_post",
+          "summary": "Retrieve Victimization Data",
+          "description": "Retrieve victimization data by date, city, neighborhood and classification.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "start_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date for filtering"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "End date for filtering"
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "City name"
+                  },
+                  "neighborhood": {
+                    "type": "string",
+                    "description": "Neighborhood name"
+                  },
+                  "classification": {
+                    "type": "string",
+                    "description": "Classification code"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Victimization data",
+              "schema": {
+                "type": "object"
+              }
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "smart_cities:victimization"
+          ]
+        }
+      },
+      "/smart_cities/victimization/city": {
+        "get": {
+          "operationId": "smart_cities_victimization_city_list",
+          "summary": "List Victimization Cities",
+          "description": "Retrieve a list of cities with victimization data.",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "List of cities",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "smart_cities:victimization"
+          ]
+        }
+      },
+      "/smart_cities/victimization/neighborhood": {
+        "get": {
+          "operationId": "smart_cities_victimization_neighborhood_list",
+          "summary": "List Victimization Neighborhoods",
+          "description": "Retrieve a list of neighborhoods with victimization data.",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "List of neighborhoods",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "smart_cities:victimization"
+          ]
+        }
+      },
+      "/user/file": {
         "get": {
           "operationId": "user_file_list",
           "description": "Basemap view creates list and data.",
@@ -5729,7 +7838,7 @@
         },
         "parameters": []
       },
-      "/user/file/geo/detail/{id}/": {
+      "/user/file/geo/detail/{id}": {
         "get": {
           "operationId": "user_file_geo_detail_read",
           "description": "View to retrieve `models.UserUploadedFileGeometry` model data.",
@@ -5756,7 +7865,7 @@
           }
         ]
       },
-      "/user/file/geo/{id}/": {
+      "/user/file/geo/{id}": {
         "get": {
           "operationId": "user_file_geo_read",
           "description": "View to retrieve `models.UserUploadedFileGeometry` model data.",
@@ -5815,7 +7924,7 @@
           }
         ]
       },
-      "/user/group/": {
+      "/user/group": {
         "get": {
           "operationId": "user_group_list",
           "description": "Group list and create view data.",
@@ -5892,7 +8001,7 @@
         },
         "parameters": []
       },
-      "/user/group/{id}/": {
+      "/user/group/{id}": {
         "get": {
           "operationId": "user_group_read",
           "description": "Group retrieve, update and destroy view data.",
@@ -5982,7 +8091,7 @@
           }
         ]
       },
-      "/user/logged/": {
+      "/user/logged": {
         "get": {
           "operationId": "user_logged_list",
           "description": "Get user logged data.",
@@ -6034,7 +8143,7 @@
         },
         "parameters": []
       },
-      "/user/map/print/log/": {
+      "/user/map/print/log": {
         "post": {
           "operationId": "user_map_print_log_create",
           "description": "Handles the POST request for user requests",
@@ -6079,7 +8188,7 @@
         },
         "parameters": []
       },
-      "/user/role/": {
+      "/user/role": {
         "get": {
           "operationId": "user_role_list",
           "description": "Role list and create view data.",
@@ -6156,7 +8265,7 @@
         },
         "parameters": []
       },
-      "/user/role/{id}/": {
+      "/user/role/{id}": {
         "get": {
           "operationId": "user_role_read",
           "description": "Role retrieve, update and destroy view data.",
@@ -6246,7 +8355,7 @@
           }
         ]
       },
-      "/user/sector/": {
+      "/user/sector": {
         "get": {
           "operationId": "user_sector_list",
           "description": "\"API to return all available sectors.",
@@ -6298,7 +8407,7 @@
         },
         "parameters": []
       },
-      "/user/settings/": {
+      "/user/settings": {
         "put": {
           "operationId": "user_settings_update",
           "description": "View to update authenticated User Settings.",
@@ -6351,7 +8460,7 @@
         },
         "parameters": []
       },
-      "/user/{id}/": {
+      "/user/{id}": {
         "get": {
           "operationId": "user_read",
           "description": "\"API to return all users along with their respective sector ID.",
@@ -6441,7 +8550,7 @@
           }
         ]
       },
-      "/user/{id}/file/": {
+      "/user/{id}/file": {
         "get": {
           "operationId": "user_file_read",
           "description": "Class for delete and update User Upload File data.",
@@ -6530,6 +8639,408 @@
             "type": "integer"
           }
         ]
+      },
+      "/tickets": {
+        "get": {
+          "operationId": "tickets_list",
+          "summary": "List Tickets",
+          "description": "Retrieve a list of tickets for the authenticated user. Admins see all tickets; other users see their own or those related to their roles.",
+          "responses": {
+            "200": {
+              "description": "A list of tickets",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Ticket"
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        },
+        "post": {
+          "operationId": "tickets_create",
+          "summary": "Create Ticket",
+          "description": "Create a new ticket. Attachments can be uploaded as multipart/form-data.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Ticket"
+              }
+            },
+            {
+              "name": "attachments",
+              "in": "formData",
+              "required": false,
+              "type": "string",
+              "format": "binary",
+              "description": "One or more files to attach to the ticket"
+            }
+          ],
+          "consumes": [
+            "multipart/form-data",
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "Ticket created successfully",
+              "schema": {
+                "$ref": "#/definitions/Ticket"
+              }
+            },
+            "400": {
+              "description": "Invalid input or attachment error"
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
+      },
+      "/tickets/{id}": {
+        "get": {
+          "operationId": "tickets_read",
+          "summary": "Retrieve Ticket",
+          "description": "Retrieve details of a specific ticket by its ID. Admins can access any ticket; other users can only access their own tickets.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the ticket to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ticket details",
+              "schema": {
+                "$ref": "#/definitions/Ticket"
+              }
+            },
+            "404": {
+              "description": "Ticket not found"
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
+      },
+      "/tickets/{id}/status": {
+        "get": {
+          "operationId": "tickets_status_read",
+          "summary": "Retrieve Ticket Status",
+          "description": "Retrieve the status details of a specific ticket by its ID. Only admins can access this endpoint.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the ticket to retrieve status for"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ticket status details",
+              "schema": {
+                "$ref": "#/definitions/TicketStatus"
+              }
+            },
+            "404": {
+              "description": "Ticket status not found"
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        },
+        "patch": {
+          "operationId": "tickets_status_update",
+          "summary": "Update Ticket Status",
+          "description": "Update the status of a specific ticket by its ID. Only admins can update ticket status. Attachments can be uploaded as multipart/form-data.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the ticket to update status for"
+            },
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/TicketStatus"
+              }
+            },
+            {
+              "name": "attachments",
+              "in": "formData",
+              "required": false,
+              "type": "string",
+              "format": "binary",
+              "description": "One or more files to attach to the ticket status",
+              "allowMultiple": true
+            }
+          ],
+          "consumes": [
+            "multipart/form-data",
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Ticket analyzed and history updated",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "ticket analyzed and history updated"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid input or attachment error"
+            },
+            "404": {
+              "description": "Ticket or ticket status not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
+      },
+      "/tickets/choices": {
+        "get": {
+          "operationId": "tickets_choices_list",
+          "summary": "Get Ticket Status Choices",
+          "description": "Retrieve all possible choices for ticket status and priority. Useful for populating dropdowns in forms.",
+          "responses": {
+            "200": {
+              "description": "A dictionary with status and priority choices",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status_category_choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "string" },
+                        "display": { "type": "string" }
+                      }
+                    }
+                  },
+                  "priority_choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "string" },
+                        "display": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
+      },
+      "/tickets/download-tickets": {
+        "post": {
+          "operationId": "tickets_download_xlsx",
+          "summary": "Download Tickets as Excel",
+          "description": "Generate and download an Excel (.xlsx) report for a list of ticket IDs. Requires authentication.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ticket_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "List of ticket IDs to include in the Excel report"
+                  }
+                },
+                "required": ["ticket_ids"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Excel file generated successfully",
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "400": {
+              "description": "No ticket IDs provided or invalid input"
+            },
+            "404": {
+              "description": "No tickets found with the provided IDs"
+            },
+            "501": {
+              "description": "Excel generation functionality is temporarily unavailable"
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
+      },
+      "/tickets/send-email": {
+        "post": {
+          "operationId": "tickets_send_email",
+          "summary": "Send Ticket Email",
+          "description": "Send an email related to a ticket to the user. Requires the ticket ID and email data. Currently, the email functionality is temporarily unavailable.",
+          "parameters": [
+            {
+              "name": "data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ticket_id": {
+                    "type": "integer",
+                    "description": "ID of the ticket to send the email for"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Recipient email address"
+                  },
+                  "subject": {
+                    "type": "string",
+                    "description": "Email subject"
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "Email message body"
+                  }
+                },
+                "required": ["ticket_id", "email", "subject", "message"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Email sent successfully (when implemented)",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "Email sent successfully."
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Ticket not found",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Ticket not found."
+                  }
+                }
+              }
+            },
+            "501": {
+              "description": "Email functionality is temporarily unavailable",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "example": "Email functionality is temporarily unavailable."
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
+      },
+      "/download/attachments/critcs_and_suggestions/answer/{filename}": {
+        "get": {
+          "operationId": "download_document",
+          "summary": "Download Ticket Answer Attachment",
+          "description": "Download an attachment file from a ticket answer by filename. Returns the file as an attachment if it exists.",
+          "parameters": [
+            {
+              "name": "filename",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Name of the file to download (including extension)"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "File downloaded successfully",
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "404": {
+              "description": "File not found",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Arquivo não encontrado"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "tickets"
+          ]
+        }
       }
     },
     "definitions": {
@@ -6607,6 +9118,158 @@
           },
           "date_created": {
             "title": "Date created",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Contact": {
+        "required": [
+          "cpf",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ID",
+            "type": "integer",
+            "readOnly": true
+          },
+          "cpf": {
+            "title": "CPF",
+            "type": "string",
+            "description": "Contact's CPF"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Contact's name"
+          },
+          "birthdate": {
+            "title": "Birthdate",
+            "type": "string",
+            "format": "date",
+            "description": "Contact's birthdate"
+          },
+          "apf": {
+            "title": "APF",
+            "type": "string",
+            "description": "Contact's APF"
+          },
+          "car": {
+            "title": "CAR",
+            "type": "string",
+            "description": "Contact's CAR"
+          },
+          "nirf": {
+            "title": "NIRF",
+            "type": "string",
+            "description": "Contact's NIRF"
+          }
+        }
+      },
+      "Property": {
+        "required": [
+          "id",
+          "contact_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ID",
+            "type": "integer",
+            "readOnly": true
+          },
+          "contact_id": {
+            "title": "Contact ID",
+            "type": "integer",
+            "description": "ID of the contact associated with the property"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Property name"
+          },
+          "nirf": {
+            "title": "NIRF",
+            "type": "string",
+            "description": "Property NIRF"
+          },
+          "car_status": {
+            "title": "CAR Status",
+            "type": "string",
+            "description": "CAR status"
+          },
+          "uf": {
+            "title": "UF",
+            "type": "string",
+            "description": "State (UF)"
+          },
+          "county": {
+            "title": "County",
+            "type": "string",
+            "description": "County"
+          },
+          "geom": {
+            "title": "Geometry",
+            "type": "object",
+            "description": "Feature Collection geometry"
+          },
+          "area": {
+            "title": "Area",
+            "type": "number",
+            "description": "Property area in hectares"
+          },
+          "is_favorite": {
+            "title": "Is Favorite",
+            "type": "boolean",
+            "description": "Favorite status"
+          }
+        }
+      },
+      "Gleba": {
+        "required": [
+          "property",
+          "geometry",
+          "name",
+          "area"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "ID",
+            "type": "integer",
+            "readOnly": true
+          },
+          "property": {
+            "title": "Property",
+            "type": "integer",
+            "description": "ID of the property this gleba belongs to"
+          },
+          "geometry": {
+            "title": "Geometry",
+            "type": "object",
+            "description": "Geometry of the gleba (GeoJSON)"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the gleba"
+          },
+          "area": {
+            "title": "Area",
+            "type": "number",
+            "description": "Area of the gleba"
+          },
+          "date_created": {
+            "title": "Date created",
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "date_updated": {
+            "title": "Date updated",
             "type": "string",
             "format": "date-time",
             "readOnly": true
@@ -7964,6 +10627,182 @@
           }
         }
       },
+      "Alert": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "alert_category": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/AlertCategory"
+            }
+          },
+          "geom": {
+            "type": "string",
+            "description": "Geometry (WKT or GeoJSON)"
+          },
+          "properties": {
+            "type": "object",
+            "description": "Alert properties"
+          },
+          "type": {
+            "type": "string",
+            "description": "Alert type"
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AlertCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AlertHistory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "alert": {
+            "$ref": "#/definitions/Alert"
+          },
+          "user": {
+            "$ref": "#/definitions/SimpleUser"
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FindFaceWatchlist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+      "AlertConfig": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the alert configuration",
+            "maxLength": 255,
+            "x-nullable": true
+          },
+          "alert_category": {
+            "$ref": "#/definitions/AlertCategory",
+            "description": "Alert category that this alert belongs to"
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Layer"
+            },
+            "description": "Layers that belong to this alert"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Role"
+            },
+            "description": "Roles that can access this alert"
+          },
+          "email_list": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of email addresses to notify for this alert"
+          },
+          "api_list": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of API endpoints to notify for this alert"
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "date_updated": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": ["alert_category"]
+      },
+      "AlertLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "user": {
+            "$ref": "#/definitions/User",
+            "description": "User who triggered the alert log",
+            "x-nullable": true
+          },
+          "alert": {
+            "$ref": "#/definitions/Alert",
+            "description": "Alert associated with this log",
+            "x-nullable": true
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
       "ResponseLog": {
         "type": "object",
         "properties": {
@@ -8438,6 +11277,185 @@
             "format": "uri"
           }
         }
+      },
+      "Ticket": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "Ticket unique code (primary key)",
+            "readOnly": true
+          },
+          "requesting": {
+            "$ref": "#/definitions/User",
+            "description": "User who requested the ticket"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Ticket subject"
+          },
+          "description": {
+            "type": "string",
+            "description": "Ticket description"
+          },
+          "opened_in": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the ticket was opened",
+            "readOnly": true
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Role"
+            },
+            "description": "Roles related to this ticket"
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Alert"
+            },
+            "description": "Alerts related to this ticket"
+          },
+          "alert_category": {
+            "$ref": "#/definitions/AlertCategory",
+            "description": "Alert category related to this ticket"
+          }
+        },
+        "required": ["subject", "description", "requesting"]
+      },
+      "TicketAttachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "ticket": {
+            "$ref": "#/definitions/Ticket",
+            "description": "Ticket associated with this attachment"
+          },
+          "file_path": {
+            "type": "string",
+            "format": "binary",
+            "description": "File attached to the ticket"
+          },
+          "name_file": {
+            "type": "string",
+            "description": "Name of the attached file"
+          }
+        },
+        "required": ["ticket", "file_path", "name_file"]
+      },
+      "TicketStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "status_category": {
+            "type": "string",
+            "enum": [
+              "NAO_ANALISADO",
+              "EM_ANDAMENTO",
+              "CONCLUIDO",
+              "RECUSADO",
+              "DEFERIDO",
+              "DESENVOLVIDO"
+            ],
+            "description": "Status category"
+          },
+          "priority_code": {
+            "type": "string",
+            "enum": [
+              "BAIXA",
+              "MEDIA",
+              "ALTA"
+            ],
+            "description": "Priority code"
+          },
+          "ticket": {
+            "$ref": "#/definitions/Ticket",
+            "description": "Ticket associated with this status"
+          },
+          "analyzed_by": {
+            "$ref": "#/definitions/User",
+            "description": "User who analyzed the ticket",
+            "x-nullable": true
+          },
+          "analyzed_in": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the ticket was analyzed",
+            "x-nullable": true
+          },
+          "due_on": {
+            "type": "string",
+            "format": "date",
+            "description": "Due date for the ticket",
+            "x-nullable": true
+          }
+        }
+      },
+      "TicketStatusAttachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "ticket_status": {
+            "$ref": "#/definitions/TicketStatus",
+            "description": "Ticket status associated with this attachment"
+          },
+          "ticket_history": {
+            "$ref": "#/definitions/TicketAnalysisHistory",
+            "description": "Ticket analysis history associated with this attachment"
+          },
+          "file_path": {
+            "type": "string",
+            "format": "binary",
+            "description": "File attached to the ticket status"
+          },
+          "name_file": {
+            "type": "string",
+            "description": "Name of the attached file"
+          }
+        },
+        "required": ["ticket_status", "ticket_history", "file_path", "name_file"]
+      },
+      "TicketAnalysisHistory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "analyzed_update": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the analysis was updated"
+          },
+          "ticket_status": {
+            "type": "string",
+            "description": "Status of the ticket at the time of analysis"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Comment about the analysis"
+          },
+          "author": {
+            "$ref": "#/definitions/User",
+            "description": "User who wrote the analysis"
+          },
+          "ticket": {
+            "$ref": "#/definitions/Ticket",
+            "description": "Ticket associated with this analysis"
+          }
+        },
+        "required": ["analyzed_update", "comment", "author", "ticket"]
       }
     }
   }
