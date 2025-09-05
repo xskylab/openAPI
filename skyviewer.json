@@ -5574,7 +5574,7 @@
           ]
         }
       },
-      "/babelstreet/identity/log/{id}": {
+      "/smart_cities/babelstreet/identity/log/{id}": {
         "get": {
           "operationId": "babelstreet_identity_log_read",
           "description": "Retrieve a specific Babel Street identity log by ID",
@@ -7721,6 +7721,36 @@
                 "type": "array",
                 "items": {
                   "type": "string"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "tags": [
+            "smart_cities:victimization"
+          ]
+        }
+      },
+     "/smart_cities/victimization/offense-types": {
+        "get": {
+          "operationId": "smart_cities_victimization_offense_types",
+          "summary": "Retrieve victimization filter for data sources.",
+          "description": "List victimization offense types.",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Victimization offense types data.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                    "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                    }
                 }
               }
             },
