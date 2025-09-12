@@ -1302,7 +1302,7 @@
           ]
         }
       },
-    "/agro/properties/{id}/resolved-embargo/": {
+    "/agro/properties/{id}/resolved-embargo": {
         "get": {
           "operationId": "agro_property_id_resolved_embargo",
           "description": "Get resolved embargo data on Google BigQuery.",
