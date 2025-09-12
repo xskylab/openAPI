@@ -1302,6 +1302,48 @@
           ]
         }
       },
+    "/agro/properties/{id}/resolved-embargo/": {
+        "get": {
+          "operationId": "agro_property_id_resolved_embargo",
+          "description": "Get resolved embargo data on Google BigQuery.",
+          "summary": "Get resolved embargo data",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the property to retrieve resolved embargo"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property resolved embargo data",
+              "schema": {
+                "type": "object",
+                "description": "Feature Collection geometry with resolved embargo",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                }
+              },
+            "404": {
+              "description": "Property not found"
+            }
+          },
+          "tags": [
+            "agro:Property"
+          ]
+        }
+     }
+    },
       "/agro/properties/{id}/overlap": {
         "get": {
           "operationId": "agro_property_overlap",
