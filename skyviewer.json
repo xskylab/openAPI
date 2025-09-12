@@ -860,7 +860,7 @@
           ]
         }
       },
-      "/agro/contacts/batch":{
+      "/agro/contacts/create/batch":{
         "post": {
           "operationId": "agro_contact_batch_create",
           "description": "Create new contacts in batch",
