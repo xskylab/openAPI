@@ -540,6 +540,11 @@
               "type": "integer",
               "readOnly": true
             },
+            "pk": {
+              "title": "PK",
+              "type": "integer",
+              "readOnly": true
+            },
             "value": {
               "title": "Value",
               "type": "string",
