@@ -194,6 +194,15 @@
               }
             },
             {
+              "name": "pk",
+              "in": "query",
+              "description": "Filtra os resultados a partir do código identificador do banco de dados.",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
               "name": "station",
               "in": "query",
               "description": "Filtra os resultados a partir do identificador da estação.",
@@ -246,6 +255,16 @@
               "name": "id_greater_than",
               "in": "query",
               "description": "Filtra os resultados com o código identificador da mensagem maior do que o parametro informado.",
+              "example": "1651231871",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "pk_greater_than",
+              "in": "query",
+              "description": "Filtra os resultados com o código identificador do banco de dados maior do que o parametro informado.",
               "example": "1651231871",
               "required": false,
               "schema": {
@@ -389,6 +408,12 @@
               "example": 1651231871,
               "description": "Filtra os resultados a partir do código identificador da mensagem."
             },
+            "pk": {
+              "title": "pk",
+              "type": "integer",
+              "example": 1651231871,
+              "description": "Filtra os resultados a partir do código identificador do banco de dados."
+            },
             "station":{
               "type": "string",
               "example": "A998",
@@ -416,6 +441,11 @@
             },
             "id_greater_than":{
               "description": "Filtra os resultados com o código identificador da mensagem maior do que o parametro informado.",
+              "example": "1651231871",
+              "type": "integer"
+            },
+            "pk_greater_than":{
+              "description": "Filtra os resultados com o código identificador do banco de dados maior do que o parametro informado.",
               "example": "1651231871",
               "type": "integer"
             }
