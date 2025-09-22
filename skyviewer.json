@@ -860,7 +860,7 @@
           ]
         }
       },
-      "/agro/contacts/batch":{
+      "/agro/contacts/create/batch":{
         "post": {
           "operationId": "agro_contact_batch_create",
           "description": "Create new contacts in batch",
@@ -1449,6 +1449,62 @@
           ]
         }   
       },
+        "/agro/properties/{property_id}/resolved-embargo": {
+  "get": {
+    "operationId": "properties_resolved_embargo",
+    "description": "Get resolved embargo data on Google BigQuery.",
+    "parameters": [
+      {
+        "name": "property_id",
+        "in": "path",
+        "description": "Primary key of the property.",
+        "required": true,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "exampleField": {
+              "type": "string",
+              "description": "Replace with the real fields returned by get_resolved_embargo_property."
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "400": {
+        "description": "Property does not have a CAR code",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "No resolved embargo data found",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "tags": [
+      "properties"
+    ]
+  },
+  "parameters": []
+},
       "/agro/gleba": {
         "get": {
           "operationId": "agro_gleba_list",
@@ -2426,6 +2482,58 @@
         },
         "parameters": []
       },
+    "/layer/orbcomm/fetch": {
+  "get": {
+    "operationId": "orbcomm_fetch_list",
+    "description": "Consume Cronos microservice to get Orbcomm data.",
+    "parameters": [
+      {
+        "name": "param1",
+        "in": "query",
+        "description": "Example query parameter (replace with real ones).",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stationId": {
+                "type": "string",
+                "description": "Station identifier"
+              },
+              "status": {
+                "type": "string",
+                "description": "Station status"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "tags": [
+      "orbcomm"
+    ]
+  },
+  "parameters": []
+},
       "/layer/basemap/{id}": {
         "get": {
           "operationId": "layer_basemap_read",
@@ -6208,7 +6316,7 @@
           ]
         }
       },
-      "/smart_cities/findface/event": {
+      "/smart_cities/findface/events": {
       "post": {
           "operationId": "smart_cities_findface_event_create",
           "summary": "Create FindFace Human Event",
@@ -6439,7 +6547,7 @@
           ]
         }
       },
-      "/smart_cities/findface/camera/url/{id}": {
+      "/smart_cities/findface/camera/url/{id}_camera": {
         "get": {
           "operationId": "smart_cities_findface_camera_url_read",
           "summary": "Retrieve FindFace Camera URL",
@@ -7563,6 +7671,69 @@
           ]
         }
       },
+      "/smart_cities/alert-categories": {
+        "get": {
+          "operationId": "smart_cities_alerts_categories",
+          "summary": "List all alert categories available in the system.",
+          "description": "List of alert categories with their properties.",
+          "parameters": [
+            {
+              "name": "start_date",
+              "in": "query",
+              "description": "List all alert categories",
+              "required": false,
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "name": "end_date",
+              "in": "query",
+              "description": "Filter alerts that occurred before this date",
+              "required": false,
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "name": "classification",
+              "in": "query",
+              "description": "Filter alerts by classification",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "event_type",
+              "in": "query",
+              "description": "Filter alerts by event type",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "q",
+              "in": "query",
+              "description": "Search term for filtering alerts",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of categories",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Alert"
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request - Invalid query parameters"
+            }
+          },
+          "tags": [
+            "smart_cities:alerts"
+          ]
+        }
+      },
       "/smart_cities/report_hotline": {
         "post": {
           "operationId": "smart_cities_report_hotline_create",
@@ -7838,6 +8009,45 @@
         },
         "parameters": []
       },
+    "/smart_cities/victimization/offense-types": {
+  "get": {
+    "operationId": "victimization_offense_types_list",
+    "description": "List victimization offense types for data sources.",
+    "parameters": [],
+    "responses": {
+      "200": {
+        "description": "",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "The offense type name."
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "tags": [
+      "victimization"
+    ]
+  },
+  "parameters": []
+},
       "/user/file/geo/detail/{id}": {
         "get": {
           "operationId": "user_file_geo_detail_read",
@@ -8355,6 +8565,58 @@
           }
         ]
       },
+    "/user/role/simple": {
+  "get": {
+    "operationId": "role_simple_list",
+    "description": "Retrieve a list of simple roles.",
+    "parameters": [
+      {
+        "name": "page",
+        "in": "query",
+        "description": "A page number within the paginated result set.",
+        "required": false,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "",
+        "schema": {
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "next": {
+              "type": "string",
+              "format": "uri",
+              "x-nullable": true
+            },
+            "previous": {
+              "type": "string",
+              "format": "uri",
+              "x-nullable": true
+            },
+            "results": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SimpleRole"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tags": [
+      "role:simple"
+    ]
+  },
+  "parameters": []
+},
       "/user/sector": {
         "get": {
           "operationId": "user_sector_list",
