@@ -9308,6 +9308,1203 @@
                     "tickets"
                 ]
             }
+        },
+        "/management/access-metrics/": {
+            "get": {
+            "operationId": "management_access_metrics_list",
+            "description": "List access metrics with daily and monthly aggregations. Admin only.",
+            "tags": [
+            "management"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Access metrics retrieved successfully",
+                "schema": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AccessMetrics"
+                    }
+                    },
+                    "daily_counts": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                        "day": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "count": {
+                            "type": "integer"
+                        }
+                        }
+                    }
+                    },
+                    "monthly_counts": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                        "month": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "count": {
+                            "type": "integer"
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "403": {
+                "description": "Forbidden (admin role required)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/crop/": {
+        "get": {
+            "operationId": "crop_list",
+            "description": "Returns the list of crops from Demeter API.",
+            "tags": [
+            "crop"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "List of crops retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/ndvi/timeseries/": {
+        "post": {
+            "operationId": "ndvi_time_series_create",
+            "description": "Returns NDVI time series data for a given geometry and parameters.",
+            "tags": [
+            "ndvi"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "description": "NDVI time series request payload (GeoJSON and filters).",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "NDVI time series retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "400": {
+                "description": "Invalid request payload"
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "500": {
+                "description": "Internal server error"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/production/estimate/{pk}/": {
+        "post": {
+            "operationId": "production_estimate_create",
+            "description": "Returns the current cycle production estimate for a given crop.",
+            "tags": [
+            "production"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "pk",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Crop ID"
+            },
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "description": "Production estimate request payload.",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Production estimate retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/production/geosys/crop/": {
+        "post": {
+            "operationId": "production_geosys_crop_create",
+            "description": "Returns Geosys crop production data.",
+            "tags": [
+            "production"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "description": "Geosys crop production request payload.",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Geosys crop production data retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/alert/type/": {
+        "get": {
+            "operationId": "alert_type_list",
+            "description": "Returns the list of distinct alert types.",
+            "tags": [
+            "alert"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "List of alert types",
+                "schema": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/alerts/history/": {
+        "get": {
+            "operationId": "alert_history_list",
+            "description": "Retrieve alert history records using query filters.",
+            "tags": [
+            "alert"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "alert",
+                "in": "query",
+                "required": false,
+                "type": "integer",
+                "description": "Filter by alert ID"
+            },
+            {
+                "name": "user",
+                "in": "query",
+                "required": false,
+                "type": "integer",
+                "description": "Filter by user ID"
+            },
+            {
+                "name": "created_at",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "format": "date",
+                "description": "Filter by creation date"
+            },
+            {
+                "name": "page",
+                "in": "query",
+                "required": false,
+                "type": "integer",
+                "description": "Page number (pagination)"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "List of alert history records",
+                "schema": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/camera/url/{id_camera}/": {
+        "get": {
+            "operationId": "findface_camera_stream_url_retrieve",
+            "description": "Get FindFace camera stream URL by camera ID.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "id_camera",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Camera ID"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Camera stream URL",
+                "schema": {
+                "type": "string",
+                "example": "wss://findface.example.com/cameras/12/stream/?token=abc123"
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "404": {
+                "description": "Camera not found"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/cards/humans/{id}/": {
+        "get": {
+            "operationId": "findface_card_human_retrieve",
+            "description": "Get card human details from FindFace by ID.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Card human ID"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Card human data retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "500": {
+                "description": "Internal server error"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/clusters-events/faces/{id_face}/": {
+        "get": {
+            "operationId": "findface_cluster_events_faces_retrieve",
+            "description": "Get faces grouped by face ID from FindFace cluster events.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "id_face",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Face ID used to retrieve cluster event faces"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Cluster event faces retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "404": {
+                "description": "No FaceClusterEvent matches the given query"
+            },
+            "502": {
+                "description": "Unexpected error while fetching cluster event face"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/clusters/faces/": {
+        "get": {
+            "operationId": "findface_clusters_faces_list",
+            "description": "Get cluster faces filtered from FindFace using query parameters.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "query",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "description": "Dynamic query parameters forwarded to FindFace (filtering, pagination, etc.)"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Cluster faces retrieved successfully",
+                "schema": {
+                "type": "object",
+                "additionalProperties": true
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "502": {
+                "description": "Unexpected error while fetching list cluster face"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/clusters/faces/{id_face}/": {
+        "get": {
+            "operationId": "findface_clusters_faces_retrieve",
+            "description": "Get faces grouped by cluster ID from FindFace.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "id_face",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Cluster face ID"
+            },
+            {
+                "name": "contact_threshold_seconds",
+                "in": "query",
+                "required": false,
+                "type": "integer",
+                "default": 120,
+                "description": "Minimum contact time (in seconds) to group faces"
+            },
+            {
+                "name": "limit",
+                "in": "query",
+                "required": false,
+                "type": "integer",
+                "default": 20,
+                "description": "Maximum number of faces to return"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Cluster faces retrieved successfully",
+                "schema": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "404": {
+                "description": "Cluster not found"
+            },
+            "502": {
+                "description": "Unexpected error while fetching cluster faces"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/event/alert/acknowledged/{id}/": {
+        "patch": {
+            "operationId": "findface_event_alert_acknowledged_update",
+            "description": "Acknowledge a FindFace match event alert.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "Alert ID"
+            }
+            ],
+            "consumes": [
+            "application/json"
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                    "properties": {
+                        "type": "object",
+                        "properties": {
+                        "acknowledged": {
+                            "type": "boolean",
+                            "description": "Whether the alert is acknowledged"
+                        }
+                        },
+                        "required": [
+                        "acknowledged"
+                        ]
+                    }
+                    },
+                    "required": [
+                    "properties"
+                    ]
+                }
+                }
+            }
+            },
+            "responses": {
+            "200": {
+                "description": "Alert acknowledged successfully",
+                "schema": {
+                "$ref": "#/definitions/Alert"
+                }
+            },
+            "400": {
+                "description": "Invalid request payload"
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "404": {
+                "description": "Alert not found"
+            },
+            "500": {
+                "description": "Error acknowledging FindFace event"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/vehicle/event/": {
+        "post": {
+            "operationId": "findface_vehicle_event_create",
+            "description": "Create a vehicle FindFace event.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "consumes": [
+            "application/json"
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                    "comment": {
+                        "type": "string",
+                        "description": "Optional comment for the vehicle event"
+                    },
+                    "plate": {
+                        "type": "string",
+                        "description": "Vehicle license plate"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Vehicle photo (base64, URL, or identifier depending on implementation)"
+                    },
+                    "watch_lists": {
+                        "type": "string",
+                        "description": "JSON-encoded list of watchlist IDs (e.g. \"[1,2,3]\")"
+                    }
+                    },
+                    "required": [
+                    "plate"
+                    ]
+                }
+                }
+            }
+            },
+            "responses": {
+            "201": {
+                "description": "Vehicle event created successfully",
+                "schema": {
+                "type": "string",
+                "example": "Event Created"
+                }
+            },
+            "400": {
+                "description": "Invalid request payload"
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            },
+            "500": {
+                "description": "Internal server error while creating vehicle event"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/findface/watchlists/targets/{id}/": {
+        "get": {
+            "operationId": "findface_watchlist_targets_list",
+            "description": "List FindFace watchlist targets filtered by watchlist ID.",
+            "tags": [
+            "findface"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "FindFace watchlist ID"
+            },
+            {
+                "name": "query",
+                "in": "query",
+                "required": false,
+                "type": "string",
+                "description": "Filter targets by name (case-insensitive)"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "List of watchlist targets",
+                "schema": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/FindFaceWatchList"
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/map-matching/": {
+        "get": {
+            "operationId": "map_matching_list",
+            "description": "List map-matching routes belonging to the authenticated user.",
+            "tags": [
+            "map-matching"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "List of map-matching routes",
+                "schema": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/MapMatchingPathList"
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+
+        "post": {
+            "operationId": "map_matching_create",
+            "description": "Create a new map-matching route.",
+            "tags": [
+            "map-matching"
+            ],
+            "security": [
+            {
+                "TokenAuth": []
+            }
+            ],
+            "parameters": [
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "schema": {
+                "$ref": "#/definitions/MapMatchingPath"
+                }
+            }
+            ],
+            "responses": {
+            "201": {
+                "description": "Map-matching route created successfully",
+                "schema": {
+                "$ref": "#/definitions/MapMatchingPath"
+                }
+            },
+            "400": {
+                "description": "Invalid request data"
+            },
+            "401": {
+                "description": "Unauthorized (missing or invalid token)"
+            }
+            }
+        },
+
+        "parameters": []
+        },
+        "/map-matching/{id}/": {
+        "get": {
+            "operationId": "map_matching_retrieve",
+            "description": "Retrieve a map-matching route by ID.",
+            "tags": ["map-matching"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "integer",
+                "description": "ID of the map-matching route"
+            }
+            ],
+            "responses": {
+            "200": {
+                "description": "Map-matching route retrieved successfully",
+                "schema": { "$ref": "#/definitions/MapMatchingPath" }
+            },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "403": { "description": "Forbidden (user does not have access)" },
+            "404": { "description": "Map-matching route not found" }
+            }
+        },
+
+        "put": {
+            "operationId": "map_matching_update",
+            "description": "Update a map-matching route by ID.",
+            "tags": ["map-matching"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "type": "integer"
+            },
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "schema": { "$ref": "#/definitions/MapMatchingPath" }
+            }
+            ],
+            "responses": {
+            "200": { "description": "Map-matching route updated successfully", "schema": { "$ref": "#/definitions/MapMatchingPath" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "403": { "description": "Forbidden (user does not have access)" },
+            "404": { "description": "Map-matching route not found" }
+            }
+        },
+
+        "patch": {
+            "operationId": "map_matching_partial_update",
+            "description": "Partially update a map-matching route by ID.",
+            "tags": ["map-matching"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/MapMatchingPath" } }
+            ],
+            "responses": {
+            "200": { "description": "Map-matching route partially updated", "schema": { "$ref": "#/definitions/MapMatchingPath" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized" },
+            "403": { "description": "Forbidden" },
+            "404": { "description": "Not found" }
+            }
+        },
+
+        "delete": {
+            "operationId": "map_matching_delete",
+            "description": "Delete a map-matching route by ID.",
+            "tags": ["map-matching"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" }
+            ],
+            "responses": {
+            "204": { "description": "Map-matching route deleted successfully" },
+            "401": { "description": "Unauthorized" },
+            "403": { "description": "Forbidden" },
+            "404": { "description": "Map-matching route not found" }
+            }
+        },
+
+        "parameters": []
+        },
+        "/distrito/{id}/": {
+        "get": {
+            "operationId": "distrito_retrieve",
+            "description": "Retrieve a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "put": {
+            "operationId": "distrito_update",
+            "description": "Update a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Distrito" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "patch": {
+            "operationId": "distrito_partial_update",
+            "description": "Partially update a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Distrito" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "delete": {
+            "operationId": "distrito_delete",
+            "description": "Delete a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "204": { "description": "Deleted" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "parameters": []
+        },
+        "/distrito/{id}/": {
+        "get": {
+            "operationId": "distrito_retrieve",
+            "description": "Retrieve a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "put": {
+            "operationId": "distrito_update",
+            "description": "Update a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Distrito" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "patch": {
+            "operationId": "distrito_partial_update",
+            "description": "Partially update a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Distrito" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "delete": {
+            "operationId": "distrito_delete",
+            "description": "Delete a distrito by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "204": { "description": "Deleted" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "parameters": []
+        },
+        "/municipio/{id}/": {
+        "get": {
+            "operationId": "municipio_retrieve",
+            "description": "Retrieve a municipio by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Municipio" } },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "put": {
+            "operationId": "municipio_update",
+            "description": "Update a municipio by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Municipio" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Municipio" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "patch": {
+            "operationId": "municipio_partial_update",
+            "description": "Partially update a municipio by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Municipio" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Municipio" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "delete": {
+            "operationId": "municipio_delete",
+            "description": "Delete a municipio by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "204": { "description": "Deleted" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "parameters": []
+        },
+        "/sector/tiles/{z}/{x}/{y}/": {
+        "get": {
+            "operationId": "sector_vector_tile_retrieve",
+            "description": "Return Mapbox Vector Tiles (MVT) for sectors. Public endpoint.",
+            "tags": ["tiles"],
+            "produces": ["application/vnd.mapbox-vector-tile"],
+            "parameters": [
+            { "name": "z", "in": "path", "required": true, "type": "integer", "description": "Zoom level" },
+            { "name": "x", "in": "path", "required": true, "type": "integer", "description": "Tile X coordinate" },
+            { "name": "y", "in": "path", "required": true, "type": "integer", "description": "Tile Y coordinate" }
+            ],
+            "responses": {
+            "200": {
+                "description": "Vector tile (MVT)",
+                "schema": { "type": "string", "format": "binary" }
+            }
+            }
+        },
+        "parameters": []
+        },
+        "/uf/": {
+        "get": {
+            "operationId": "uf_list",
+            "description": "List UFs.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "page", "in": "query", "required": false, "type": "integer", "description": "Page number (if pagination is enabled)." }
+            ],
+            "responses": {
+            "200": { "description": "List of UFs", "schema": { "type": "array", "items": { "$ref": "#/definitions/Uf" } } },
+            "401": { "description": "Unauthorized (missing or invalid token)" }
+            }
+        },
+        "post": {
+            "operationId": "uf_create",
+            "description": "Create a UF.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Uf" } }],
+            "responses": {
+            "201": { "description": "Created", "schema": { "$ref": "#/definitions/Uf" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" }
+            }
+        },
+        "parameters": []
+        },
+        "/uf/{id}/": {
+        "get": {
+            "operationId": "uf_retrieve",
+            "description": "Retrieve a UF by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Uf" } },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "put": {
+            "operationId": "uf_update",
+            "description": "Update a UF by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Uf" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Uf" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "patch": {
+            "operationId": "uf_partial_update",
+            "description": "Partially update a UF by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "integer" },
+            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Uf" } }
+            ],
+            "responses": {
+            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Uf" } },
+            "400": { "description": "Invalid request data" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "delete": {
+            "operationId": "uf_delete",
+            "description": "Delete a UF by ID.",
+            "tags": ["geo"],
+            "security": [{"TokenAuth": []}],
+            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+            "responses": {
+            "204": { "description": "Deleted" },
+            "401": { "description": "Unauthorized (missing or invalid token)" },
+            "404": { "description": "Not found" }
+            }
+        },
+        "parameters": []
+        },
+        "/reset-password/": {
+        "post": {
+            "operationId": "reset_password_create",
+            "description": "Start password reset flow by sending a reset code to the user's email.",
+            "tags": ["auth"],
+            "parameters": [
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "schema": {
+                "type": "object",
+                "properties": {
+                    "email": { "type": "string", "format": "email" }
+                },
+                "required": ["email"]
+                }
+            }
+            ],
+            "responses": {
+            "200": { "description": "Reset code sent" },
+            "400": { "description": "Email is required" },
+            "404": { "description": "Email not found" },
+            "429": { "description": "Password reset limit reached" }
+            }
+        },
+        "parameters": []
         }
     },
     "definitions": {
@@ -11847,5 +13044,23 @@
                 "ticket"
             ]
         }
+        ,
+        "Bairro": {
+        "type": "object",
+        "additionalProperties": true
+        },
+        "Distrito": {
+        "type": "object",
+        "additionalProperties": true
+        },
+        "Municipio": {
+        "type": "object",
+        "additionalProperties": true
+        },
+        "Uf": {
+        "type": "object",
+        "additionalProperties": true
+        }
+
     }
 }
