@@ -9408,7 +9408,7 @@
             "operationId": "ndvi_time_series_create",
             "description": "Returns NDVI time series data for a given geometry and parameters.",
             "tags": [
-            "agro:NDVI"
+            "agro:PEA"
             ],
             "security": [
             {
