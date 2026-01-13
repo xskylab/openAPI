@@ -10253,65 +10253,6 @@
         },
         "parameters": []
         },
-        "/distrito/{id}/": {
-        "get": {
-            "operationId": "distrito_retrieve",
-            "description": "Retrieve a distrito by ID.",
-            "tags": ["geo"],
-            "security": [{"TokenAuth": []}],
-            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
-            "responses": {
-            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
-            "401": { "description": "Unauthorized (missing or invalid token)" },
-            "404": { "description": "Not found" }
-            }
-        },
-        "put": {
-            "operationId": "distrito_update",
-            "description": "Update a distrito by ID.",
-            "tags": ["geo"],
-            "security": [{"TokenAuth": []}],
-            "parameters": [
-            { "name": "id", "in": "path", "required": true, "type": "integer" },
-            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Distrito" } }
-            ],
-            "responses": {
-            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
-            "400": { "description": "Invalid request data" },
-            "401": { "description": "Unauthorized (missing or invalid token)" },
-            "404": { "description": "Not found" }
-            }
-        },
-        "patch": {
-            "operationId": "distrito_partial_update",
-            "description": "Partially update a distrito by ID.",
-            "tags": ["geo"],
-            "security": [{"TokenAuth": []}],
-            "parameters": [
-            { "name": "id", "in": "path", "required": true, "type": "integer" },
-            { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Distrito" } }
-            ],
-            "responses": {
-            "200": { "description": "OK", "schema": { "$ref": "#/definitions/Distrito" } },
-            "400": { "description": "Invalid request data" },
-            "401": { "description": "Unauthorized (missing or invalid token)" },
-            "404": { "description": "Not found" }
-            }
-        },
-        "delete": {
-            "operationId": "distrito_delete",
-            "description": "Delete a distrito by ID.",
-            "tags": ["geo"],
-            "security": [{"TokenAuth": []}],
-            "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
-            "responses": {
-            "204": { "description": "Deleted" },
-            "401": { "description": "Unauthorized (missing or invalid token)" },
-            "404": { "description": "Not found" }
-            }
-        },
-        "parameters": []
-        },
         "/municipio/{id}/": {
         "get": {
             "operationId": "municipio_retrieve",
