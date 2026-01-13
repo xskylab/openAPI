@@ -9381,7 +9381,7 @@
             "operationId": "crop_list",
             "description": "Returns the list of crops from Demeter API.",
             "tags": [
-            "agro:Crop"
+            "agro:PEA"
             ],
             "security": [
             {
@@ -9453,7 +9453,7 @@
             "operationId": "production_estimate_create",
             "description": "Returns the current cycle production estimate for a given crop.",
             "tags": [
-            "agro:Production"
+            "agro:PEA"
             ],
             "security": [
             {
@@ -9499,7 +9499,7 @@
             "operationId": "production_geosys_crop_create",
             "description": "Returns Geosys crop production data.",
             "tags": [
-            "agro:Production"
+            "agro:PEA"
             ],
             "security": [
             {
